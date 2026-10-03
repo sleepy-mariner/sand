@@ -168,12 +168,9 @@ aside{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));max-height:c
 input,select{-webkit-text-fill-color:var(--ink);opacity:1;color-scheme:light dark}
 
 @media (min-width:1100px){
-  .prose{max-width:none}
+  .prose{max-width:110ch}
   .lede{max-width:90ch}
-  .prose .cols{column-count:2;column-gap:44px;column-fill:balance}
-  .prose .cols>h3{break-after:avoid;break-inside:avoid;margin-top:4px}
-  .prose .cols>p,.prose .cols>li,.prose .cols>ul,.prose .cols>ol{break-inside:avoid}
-  .prose .cols>p{margin-bottom:12px}
+  .prose p,.prose li{font-size:17px;line-height:1.6}
 }
 </style>
 </head>
@@ -705,13 +702,6 @@ document.getElementById('fundTbl').addEventListener('input',e=>{
 
 
 
-// Two-column layout on wide screens: wrap everything after each section heading
-document.querySelectorAll('article.prose > section').forEach(sec=>{
-  const h=sec.querySelector(':scope > h2'); if(!h) return;
-  const box=document.createElement('div'); box.className='cols';
-  while(h.nextSibling) box.appendChild(h.nextSibling);
-  sec.appendChild(box);
-});
 
 // Open every input group for printing, then restore
 (function(){
