@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Keeping Southern California's Sand Moving: A Pacific Sand Fleet Brief</title>
+<meta name="description" content="A proposal for a partner-financed Army Corps of Engineers sand fleet for Southern California, with an adjustable cost model.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF2F1; --panel:#FFFFFF; --ink:#1B2A31; --muted:#56666D; --line:#CBD5D4;
+  --contract:#B07F22; --jpa:#4D7A3B; --corps:#1F5D88; --field:#F7F9F8;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121B1F; --panel:#1A262B; --ink:#E4ECEC; --muted:#9AAAAE; --line:#2D3D43;
+    --contract:#D9A64A; --jpa:#7FB067; --corps:#5FA1D2; --field:#22323A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121B1F; --panel:#1A262B; --ink:#E4ECEC; --muted:#9AAAAE; --line:#2D3D43;
+  --contract:#D9A64A; --jpa:#7FB067; --corps:#5FA1D2; --field:#22323A;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5}
+.num{font-family:"Archivo Narrow","Arial Narrow",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.wrap{max-width:1240px;margin:0 auto;padding:28px 20px 60px}
+header h1{font-size:clamp(26px,3.4vw,38px);line-height:1.1;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+header p{max-width:68ch;color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:360px 1fr;gap:24px;margin-top:28px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+aside{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 18px 18px}
+details{border-bottom:1px solid var(--line)}
+details:last-child{border-bottom:0}
+summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--muted);font-weight:500}
+details[open] summary::after{content:"–"}
+summary .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:middle}
+.field{display:grid;grid-template-columns:1fr 112px;gap:10px;align-items:center;margin:0 0 10px}
+.field label{font-size:13.5px;color:var(--ink)}
+.field small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.field input{width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);
+  font:600 14px "Archivo Narrow","Arial Narrow",sans-serif;text-align:right}
+.field input:focus{outline:2px solid var(--corps);outline-offset:1px}
+.hint{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+main section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:20px}
+main h2{font-size:17px;margin:0 0 4px}
+main .sub{color:var(--muted);font-size:13.5px;margin:0 0 16px;max-width:75ch}
+.gauge{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:170px 1fr 110px;gap:14px;align-items:center}
+@media (max-width:560px){.row{grid-template-columns:1fr 90px}.row .bar{grid-column:1 / -1;order:3}}
+.row .name{font-weight:600;font-size:14px;line-height:1.25}
+.row .name span{display:block;font-weight:400;color:var(--muted);font-size:12.5px}
+.bar{height:26px;background:var(--field);border-radius:4px;position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;transition:width .35s ease}
+.row .val{text-align:right;font-size:26px;font-weight:700;line-height:1}
+.row .val small{display:block;font-size:12px;font-weight:500;color:var(--muted);font-family:"Archivo",sans-serif}
+.verdict{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px;max-width:80ch}
+.chartbox{overflow-x:auto}
+svg text{fill:var(--muted);font-family:"Archivo Narrow","Arial Narrow",sans-serif;font-size:12px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin-top:8px}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;margin-right:6px;vertical-align:middle;background:currentColor}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+thead th{font-weight:600;color:var(--muted);font-size:12.5px}
+tbody td{font-family:"Archivo Narrow","Arial Narrow",sans-serif;font-variant-numeric:tabular-nums;font-size:14px}
+tbody td:first-child{font-family:"Archivo",sans-serif;font-size:13.5px}
+tr.total td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
+tr.neg td:not(:first-child){color:var(--jpa)}
+.notes{font-size:13.5px;color:var(--muted);max-width:80ch}
+.notes p{margin:0 0 10px}
+.notes strong{color:var(--ink)}
+button.reset{margin-top:12px;font:600 13px "Archivo",sans-serif;border:1px solid var(--line);background:var(--field);color:var(--ink);padding:8px 12px;border-radius:6px;cursor:pointer}
+button.reset:focus-visible{outline:2px solid var(--corps)}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+.hero{padding:24px 0 8px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.kicker{color:var(--corps);font-weight:600;margin:0 0 10px;font-size:14px}
+.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.02;margin:0 0 16px;font-weight:700;letter-spacing:-.02em;max-width:18ch}
+.lede{font-size:18px;max-width:62ch;color:var(--ink);margin:0 0 18px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;margin-bottom:12px}
+.toc a{color:var(--corps);text-decoration:none;border-bottom:1px solid transparent}
+.toc a:hover,.toc a:focus-visible{border-bottom-color:var(--corps);outline:none}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-bottom:36px}
+.facts div{padding:16px 18px;border-left:1px solid var(--line)}
+.facts div:first-child{border-left:0}
+.facts b{display:block;font-size:30px;line-height:1.05;color:var(--corps);margin-bottom:6px}
+.facts span{font-size:13px;color:var(--muted);line-height:1.35;display:block}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+.prose{max-width:70ch}
+.prose h2,.modelsec h2{font-size:24px;line-height:1.2;margin:40px 0 12px;letter-spacing:-.01em}
+.prose p,.prose li{font-size:16.5px;line-height:1.62}
+.prose p{margin:0 0 14px}
+.prose ul,.prose ol{padding-left:1.25em;margin:0 0 14px}
+.prose li{margin-bottom:6px}
+.prose a{color:var(--corps)}
+main h3{font-size:17px;margin:0 0 4px}
+main h4.subh{font-size:14px;font-weight:600;color:var(--muted);margin:18px 0 10px}
+.modelsec{margin-top:24px;padding-top:8px;border-top:1px solid var(--line)}
+.modelsec .grid{margin-top:16px}
+.sources li{font-size:14px;line-height:1.5}
+.disclaimer{font-size:13.5px;color:var(--muted)}
+aside{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));max-height:calc(100vh - 24px);overflow-y:auto}
+@media (max-width:900px){aside{position:static;max-height:none}}
+
+#stCity input,#stCity select{width:100%;padding:5px 6px;border:1px solid var(--line);border-radius:5px;background:var(--field);color:var(--ink);font:600 13.5px "Archivo Narrow","Arial Narrow",sans-serif;text-align:right}
+#stCity select{text-align:left;font-family:"Archivo",sans-serif;font-weight:500;font-size:13px}
+#stCity th{white-space:nowrap}
+#stCity td:nth-child(2){min-width:210px}
+#stCity input[type=text]{text-align:left}
+#share input{width:64px;padding:5px 6px;border:1px solid var(--line);border-radius:5px;background:var(--field);color:var(--ink);font:600 13.5px "Archivo Narrow","Arial Narrow",sans-serif;text-align:right}
+#fundTbl input{width:100%;padding:5px 6px;border:1px solid var(--line);border-radius:5px;background:var(--field);color:var(--ink);font:600 13.5px "Archivo Narrow","Arial Narrow",sans-serif;text-align:right}
+#fundTbl td:first-child{min-width:260px}
+#stCity td.warn{color:var(--contract)}
+
+.presets{margin:4px 0 12px}
+.preset{display:block;width:100%;text-align:left;margin:0 0 6px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);font:600 13px "Archivo",sans-serif;cursor:pointer}
+.preset small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+.preset:hover,.preset:focus-visible{border-color:var(--corps);outline:none}
+
+.printbtn{margin-left:auto;font:600 13px "Archivo",sans-serif;border:1px solid var(--line);background:var(--panel);color:var(--corps);padding:6px 12px;border-radius:6px;cursor:pointer}
+.printbtn:hover,.printbtn:focus-visible{border-color:var(--corps);outline:none}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--ink:#111;--muted:#444;--line:#bbb;--field:#f3f3f3;--contract:#8a6416;--jpa:#3f6a2f;--corps:#1b4f73;padding:0}
+  @page{size:letter;margin:0.6in}
+  body{font-size:11.5pt;background:#fff}
+  .wrap{max-width:none;padding:0}
+  .toc,.printbtn,button.reset,.presets{display:none !important}
+  .hero h1{font-size:30pt}
+  .lede{font-size:13pt}
+  .facts{break-inside:avoid}
+  .prose{max-width:none}
+  .prose h2,.modelsec h2{break-after:avoid;margin-top:22pt}
+  .prose p,.prose li{font-size:11.5pt;line-height:1.45}
+  section,.row,table,.chartbox,.facts div{break-inside:avoid}
+  .grid{display:block}
+  aside{position:static;max-height:none;overflow:visible;border:1px solid var(--line);padding:6px 12px 10px;margin-bottom:14pt;columns:2;column-gap:24pt}
+  details{break-inside:avoid;border-bottom:0;margin-bottom:8pt}
+  summary{padding:6pt 0 3pt;font-size:10.5pt}
+  summary::after{content:""}
+  .field{grid-template-columns:1fr 70px;margin:0 0 3pt}
+  .field label{font-size:9pt}
+  .field small{font-size:8pt}
+  .field input{border:0;background:transparent;padding:0;font-size:9.5pt}
+  main section{border:0;padding:0;margin-bottom:16pt}
+  .bar i,.bar,.facts b,.val,svg,.sw{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tablewrap{overflow:visible}
+  table{min-width:0;font-size:9.5pt}
+  th,td{padding:3pt 5pt}
+  #stCity input,#stCity select,#fundTbl input,#share input{border:0;background:transparent;padding:0;font-size:9.5pt;appearance:none;-webkit-appearance:none}
+  .chartbox svg{max-height:3.4in}
+  .notes p{font-size:10pt}
+  a{color:inherit;text-decoration:none}
+  .sources a::after{content:" (" attr(href) ")";font-size:8pt;color:var(--muted);word-break:break-all}
+}
+input,select{-webkit-text-fill-color:var(--ink);opacity:1;color-scheme:light dark}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="kicker">Policy brief, October 2026</p>
+  <h1>Keeping Southern California's sand moving</h1>
+  <p class="lede">The region needs millions of cubic yards of sand to hold its beaches, rail line and coastal roads in place, but it depends on dredges based thousands of miles away. This brief proposes a partner-financed Pacific sand fleet operated by the U.S. Army Corps of Engineers, a single coalition to permit and fund the work once, and a short-term plan to put sand on the beach by rail while the fleet is built. Both come with cost models anyone can adjust.</p>
+  <nav class="toc" aria-label="Sections">
+    <a href="#problem">The problem</a><a href="#now">Sand now</a><a href="#studies">What the studies found</a><a href="#proposal">The proposal</a><a href="#hurdles">What has to change</a><a href="#oneroof">One roof</a><a href="#coast">Newport to San Clemente</a><a href="#stmodel">Short-term model</a><a href="#model">Dredge model</a><a href="#next">Next steps</a><button type="button" class="printbtn" onclick="window.print()">Print or save as PDF</button>
+  </nav>
+</header>
+
+<div class="facts">
+  <div><b class="num">~10%</b><span>of the 30M cy the San Diego region needed in 1993 has been placed since</span></div>
+  <div><b class="num">$39–43</b><span>per cy estimated for south Orange County beach sand in 2025</span></div>
+  <div><b class="num">2–4M</b><span>cubic yards: San Clemente’s sand deficit, by the city’s estimate</span></div>
+  <div><b class="num">$257M</b><span>price of the Corps' newest 6,000 cy hopper dredge</span></div>
+</div>
+
+<article class="prose">
+<section id="problem">
+<h2>The problem</h2>
+<p>Dams, flood channels and development have cut off most of the sand that rivers once carried to Southern California's beaches. The San Diego region's 1993 Shoreline Preservation Strategy estimated about 30 million cubic yards were needed to build protective beaches. The two regional projects since then, in 2001 and 2012, placed about 3.6 million.</p>
+<p>SANDAG's 2025 feasibility study for a third Regional Beach Sand Project (RBSP III) proposes about 6.35 million cy across 15 San Diego County beaches and, for the first time, three in south Orange County: Dana Point, San Clemente North Beach and San Clemente State Beach. It estimates $278 million for the combined program and a benefit-cost ratio of 5.5, counting recreation only.</p>
+<p>South Orange County sand is the most expensive in the program, about $39–43 per cubic yard, because the only confirmed borrow site is off Surfside/Sunset, far up the coast. Trucking from inland sources cannot fill the gap. It works for small opportunistic loads, but at program scale the truck trips, road impacts and lack of compatible inland sand make it impractical.</p>
+<p>The deeper problem is equipment. Offshore sand has to be moved by ocean-going hopper dredges, and very few are based on the West Coast. Most of the private fleet works the Gulf and East Coast, where the volume is. When a dredge does come west, the region pays a mobilization bill RBSP III puts at $15 million, competes for a narrow slot in the contractor's schedule, and risks standby charges or a departed dredge if an environmental window, permit or weather delay pushes the work back.</p>
+</section>
+<section id="now">
+<h2>We need sand now: the short-term plan</h2>
+<p>A dredge fleet is years away. The beaches are losing sand this winter. In the last month San Clemente, Dana Point, Newport Beach and Laguna Beach have each declared coastal emergencies; San Clemente put $1 million toward sand for North Beach and OCTA declared its own emergency to place 690,000 cubic yards. The money and the urgency are there. What is missing is a way to move sand at volume. OCTA itself notes that the equipment needed to deliver sand is often booked months out, and the small lifts that are possible on short notice are brutally expensive: the first emergency delivery to North Beach in 2025 brought about 3,400 cubic yards from a Palm Springs quarry by truck for roughly $900,000, well over $250 per cubic yard.</p>
+<h3>No more riprap</h3>
+<p>Rock protects the track. It does not protect the beach, and it makes the beach in front of it disappear. Three things happen when riprap goes on a sandy shore. It buries the beach it sits on. Waves that would have run up a sloping beach and lost their energy instead hit the rock and reflect, scouring sand from the toe of the revetment and from the unprotected beach at each end. And as the shoreline keeps retreating against a structure that cannot move, the beach in front of it drowns, a process coastal engineers call passive erosion. Every emergency revetment placed along the San Clemente corridor since 2021 has traded a narrow strip of beach for a protected track. OCTA has recognized this: its current emergency program is about 95% sand and 5% rock, with rock only where a slope has to be stabilized. The coalition's position should be simple. Rock only where the track will otherwise fail, sand everywhere else, and a standing commitment to replace rock with sand retention over time.</p>
+<h3>Sand by rail</h3>
+<p>The rail line that makes the beach a problem is also the solution. The track runs on the beach from Capistrano Beach through North Beach, the pier, San Clemente State Beach and Cyprus Shores. Herzog's Automated Conveyor Train is a 30-car consist, each car carrying up to 98 tons, with a discharge car that places material up to 50 feet from track center at up to 2,000 tons an hour. One loaded train carries roughly 2,000 cubic yards of sand and can be emptied onto the beach in about two hours. Material is discharged on the field side with the boom locked away from the live track, which is how the system is built to avoid fouling ballast on adjacent lines.</p>
+<p>The nearest source is a few miles up the canyon. P.W. Gillibrand Co. operates a sand quarry at 31302 Ortega Highway in San Juan Capistrano, the same material OC Parks trucked onto Capistrano Beach this spring, and it sits close to the rail corridor where the line passes through San Juan Capistrano. Sand can be trucked a short distance to a rail loadout there and run the last eight to ten miles to the beach on the conveyor train, or trucked straight to Capistrano Beach and North Beach. The larger long-run source is inland: in wet years the Santa Ana River delivers sand that the county and Newport Beach already harvest at the river outlet, and the Prado Dam basin near Corona holds about 80 million cubic yards of accumulated sediment half a mile from the Metrolink line, where UC Irvine is studying loading railcars for exactly this purpose; that material needs screening to meet beach-compatibility standards and a loadout that does not yet exist, and it travels about 70 miles of existing track through Fullerton and Irvine with no transload.</p>
+<p>The operating question is the time slot. There are gaps between the last Surfliner and the first morning train, and freight already moves through the corridor at night. One conveyor train per night, five nights a week, places on the order of 500,000 cubic yards a year, roughly OCTA's entire emergency program in twelve months. The corridor has absorbed six-week closures for emergency rock work; a scheduled overnight sand window is a smaller ask with a far better result for the track. With enough committed volume, Herzog has reason to station a second conveyor train on the West Coast.</p>
+<p>Trucks still matter, and there is a smarter way to run them. Trucking straight from a quarry to the beach is limited by how many trips a beach access point can take in a day and by the season when the beach is open to work. A staging yard near the corridor changes that: long-haul transfer trucks, which carry about 24 cubic yards against 10 for a ten-wheeler and cost less per mile, run to the yard year-round; a loader and a conveyor or short shuttle move sand to the beach when the window is open. Rather than lease a fleet and hire drivers, the coalition should sign a four- to five-year haul contract with a guaranteed annual volume. The commitment is what cuts the price: a hauler who knows the work is there for five years can lock in trucks and drivers, price below the spot rate, and fill the months the beach is closed with commercial work a public fleet legally cannot take, so the idle-truck risk sits with the hauler rather than the coalition. The model shows where that pays: on a long haul like Prado it cuts the trucking cost by roughly a fifth to a quarter, while on the short run from Gillibrand the double handling cancels most of the gain. An owned fleet of leased trucks saves a little more on paper, but only if other public agencies keep the trucks busy in the off months, and it leaves the coalition paying for parked trucks the moment a permit slips; the guaranteed contract captures most of the saving without that exposure.</p>
+<p>The model below prices this for each city with editable assumptions. The point it makes is not that rail is cheap. It is that rail is available in months, scales to the volume the emergency declarations call for, and costs about what dredged sand will cost in five years.</p>
+</section>
+
+<section id="studies">
+<h2>What the earlier studies found</h2>
+<p><strong>California Department of Boating and Waterways, 2008.</strong> Moffatt &amp; Nichol advised the state not to buy a dredge. Contracted beach dredging then cost about $6 per cy, compared with about $8.66 for a state-owned hopper dredge, and the study expected the private industry to station dredges in California once steady work appeared.</p>
+<p><strong>Orange County Parks, 2009.</strong> The same firm reached the opposite answer for OC's small harbor maintenance work. A county-owned cutter-suction dredge with ocean disposal barges would cost about 10% less than contracting, because the county could spread the equipment cost over a dependable workload. It also noted that a pooled, multi-year contract could capture similar savings.</p>
+<p><strong>SANDAG RBSP III, 2025.</strong> The newest study lists dredge ownership or a long-term lease as an open decision and recommends a separate cost-benefit analysis of leasing.</p>
+<p>The 2008 conclusion has not aged well. Contracted beach sand now costs several times what that study assumed, and the industry has not stationed dredges in the region. The 2009 study's core insight still holds: ownership wins when there is enough reliable volume to keep the dredge working.</p>
+</section>
+
+<section id="proposal">
+<h2>The proposal: a partner-financed Pacific sand fleet</h2>
+<p>No single city has enough work to justify a hopper dredge. San Clemente's share of RBSP III is roughly 200,000 cy a year, while one modern hopper dredge can place several million cy in a season. The volume exists only at the regional scale.</p>
+<p>Rather than create a new local agency to own and insure a ship, the region would fund the U.S. Army Corps of Engineers to build or acquire and operate one or more hopper dredges stationed in Southern California, with costs shared among:</p>
+<ul>
+  <li><strong>The federal government</strong>, through Corps construction and shore protection funding and a dredge built under the Corps' fleet program.</li>
+  <li><strong>The State of California</strong>, through beach restoration and coastal resilience funding.</li>
+  <li><strong>OCTA</strong>, because erosion along the LOSSAN rail corridor through San Clemente repeatedly shuts down passenger and freight service.</li>
+  <li><strong>Coastal cities and counties</strong>, in proportion to the sand they receive.</li>
+</ul>
+<p>The dredge would place beach sand during environmental windows and perform paid navigation and harbor maintenance when those windows close, keeping it busy year-round. That off-season work is what spreads the fixed cost and brings the price per cubic yard down.</p>
+<p>The national-interest case is stronger than beaches alone. The fleet would protect the LOSSAN corridor, the second-busiest intercity rail route in the country; the shoreline at Marine Corps Base Camp Pendleton; Navy installations in San Diego; Pacific Coast Highway; and the region's ports. It would also give the Corps a second West Coast hopper dredge for emergencies at a time when its two Portland-based vessels are more than 40 years old.</p>
+</section>
+
+<section id="hurdles">
+<h2>What has to change</h2>
+<p><strong>Congress has to authorize it.</strong> Since 1978, federal law has steered hopper dredging to private industry. It limits how much work Corps hopper dredges can take on and caps operating days for the West Coast dredges Essayons and Yaquina. A Southern California fleet would need new authority, most likely in a Water Resources Development Act. The private dredging industry can be expected to oppose it.</p>
+<p><strong>The capital cost is large.</strong> The Corps' new 6,000 cy hopper dredge, the Donnelly, is being built under a $257 million fixed-price contract and took about four years to build. A smaller vessel designed for beach work, or a refurbished one, could cost less.</p>
+<p><strong>The price is the market, not mainly the bureaucracy.</strong> It is fair to ask whether a federal procurement inflated the $257 million. The private comparables say mostly no. Great Lakes Dredge &amp; Dock's 6,330 cy Amelia Island, built at Conrad Shipyard and delivered in 2025, represented a total investment of about $246 million. Weeks Marine's 8,550 cy Magdalen cost about $110 million in 2017 and the 15,000 cy Frederick Paup about $200 million at its 2020 contract; a hopper dredge today simply costs two to three times what it did a decade ago. The drivers are the Jones Act and the 1906 Dredging Act, which require any vessel dredging in US waters to be built in a US yard; Tier IV engines; and a handful of yards building one or two dredges at a time. Two things do follow from the comparables. Bigger hulls cost far less per cubic yard of hopper, so a larger dredge shared across the region is cheaper per load than a small one. And the agencies that build them cheaply, Great Lakes, Weeks and Manson, do it with an in-house owner's team, a proven foreign design licensed from Royal IHC or C-Job, and sister-ship options that amortize engineering across two hulls.</p>
+<p><strong>Build the team, not the shipyard.</strong> A coalition yard in Long Beach would cost more than the dredges and would compete for the same scarce shipwrights that make California yards expensive. A cheaper coast already exists: the Gulf yards in Louisiana, Texas and Florida build every US hopper dredge today, and a foreign yard is off the table by law. What the coalition should fund is a small commissioning team, an owner's representative, naval architect and marine engineer, that picks a proven design, negotiates a two-hull option, holds the yard to schedule, and runs the Corps' or the JPA's procurement in parallel with authorization rather than after it. That team is also what makes a used-hull purchase or a long-term charter possible on a short clock. The presets in the dredge model let you compare a Corps build, a private-style build, a larger hull and a refurbished vessel.</p>
+<p><strong>Crews are civilian.</strong> Corps dredges are crewed by federal merchant mariners, not military personnel, and are paid at maritime prevailing wages. The savings in this proposal come mainly from federal financing, self-insurance and year-round use, not from lower labor costs.</p>
+<p><strong>Four years is possible only one way.</strong> The Corps' new dredge took four years from contract award to delivery, after more than a year of design and procurement, and a West Coast fleet still needs congressional authorization first. A new-build fleet in four years is not realistic. Two dedicated dredges in four years is realistic only if the coalition secures authorization in the next Water Resources Development Act, funds the acquisition of an existing US-built hopper dredge or a long-term charter rather than a new hull, and starts the Corps' procurement in parallel. The working timeline this brief assumes: sand by rail within 12 months, a multi-year charter or contract dredge within 2 to 3 years, the first owned dredge within 4 to 5 years, and a second within 6 to 8.</p>
+<p><strong>Closer sand sources matter in every scenario.</strong> Haul distance drives the cost of south Orange County sand. Investigating borrow sites nearer Dana Point and San Clemente, such as San Mateo Point, Camp Pendleton and Newport Beach, lowers costs whoever runs the dredge.</p>
+<p><strong>Utilization is the make-or-break assumption.</strong> If the dredge cannot find enough off-season work, the case weakens considerably. The model below lets you test that directly.</p>
+</section>
+<section id="coast">
+<h2>Newport to San Clemente: one coast, different needs</h2>
+<p>The dredge fleet section follows SANDAG's RBSP III footprint, which ends at Dana Point. The coalition should not. Every beach city in Orange County south of the Santa Ana River is now dealing with the same winter, and each brings something different to the table.</p>
+<ul>
+  <li><strong>Newport Beach</strong> already runs a sand program: it takes sand from the Santa Ana River outlet most years, and under this fall's emergency agreement with the county it can move up to 200,000 cubic yards onto its shoreline by January 2027 for about $1 million to $1.5 million. Its long-term need is less about beach sand and more about keeping Newport Harbor and the river outlet dredged, which is exactly the off-season work that keeps a regional dredge busy and cheap.</li>
+  <li><strong>Laguna Beach</strong> has sheltered pocket beaches that have held up better, has declared an emergency, and says it does not plan a sand project of its own yet. It cannot be served by rail. Its role is funding, political weight and a modest truck-placed allocation when it wants one.</li>
+  <li><strong>Dana Point</strong> has lost most of Capistrano Beach, has red-tagged oceanfront homes, and spent $440,000 this spring to truck 13,500 cubic yards onto the beach. RBSP III proposes 500,000 cubic yards at Dana Point, and the rail line runs along Capistrano Beach, so it can take sand by conveyor train.</li>
+  <li><strong>San Clemente</strong> is the center of the problem: a sand deficit the city puts at two to four million cubic yards, the rail corridor that keeps closing, and the only place where the fastest delivery method, rail, and the largest long-term need coincide.</li>
+</ul>
+<p>North of the Santa Ana River the picture changes. Huntington and Seal Beach sit in the San Pedro littoral cell and are fed by the Corps' Surfside-Sunset project, so sand placed there does not reach the south county. They belong in the coalition as partners and as a borrow source, not as receiver beaches in this plan.</p>
+</section>
+
+<section id="oneroof">
+<h2>One roof, one permit, one war chest</h2>
+<p>The cost model below prices dredging and placement only. The other costs are real and they are mostly paid again every time a project starts from scratch. RBSP III budgets about $8.2 million just to get to a permitted design: environmental review, permitting, habitat mapping, biological reports, offshore borrow-site investigation, receiver-site sampling, surveys and final engineering. Construction adds about $5.4 million in compliance reporting, biological and shoreline monitoring, and post-construction surveys, plus a 35% contingency that reflects how uncertain cost and schedule are at this stage. On top of that sit agency staff time, Coastal Act mitigation obligations, air permits for the dredge, and the risk of litigation. The study itself expects construction within five to ten years, and warns that folding the work into an existing Corps project could take decades.</p>
+<p>Much of that time and money comes from fragmentation: SANDAG, the Corps, OCTA, the state, OC Parks and each city run separate projects, with separate environmental documents, permits, consultants and funding cycles, often placing sand on the same stretch of beach. Consolidating under one coastal sediment coalition changes three things.</p>
+<ul>
+  <li><strong>One environmental document and one set of permits</strong> for a 50-year programmatic nourishment regime, which RBSP III already recommends, so that each five-year cycle is a notice, not a new project.</li>
+  <li><strong>One pooled fund.</strong> Real money is already on the table. In fall 2024 OCTA secured $305 million for coastal rail stabilization through San Clemente: $100 million from the Federal Railroad Administration’s CRISI program, $125 million from the state’s Transit and Intercity Rail Capital Program, and $80 million from the California Transportation Commission’s trade corridor program, with OCTA’s Measure M covering the rest of a program estimated at $250 million to $340 million. The Corps’ San Clemente shore protection project, Newport’s annual river-outlet program, OC Parks’ Capistrano Beach placements and the cities’ emergency appropriations sit alongside it, each with its own rules. Pooling them, with a shared agreement on how much of the rail money goes to sand rather than walls, is the war chest. The funding block in the model totals what is secured and shows the gap the coalition still has to close.</li>
+  <li><strong>Emergency and expedited authority used deliberately.</strong> The tools exist. In 2025 OCTA applied to the California Coastal Commission for an emergency coastal development permit on March 31 to protect the rail line through San Clemente; a partial permit was issued April 10, and the agency planned to place up to 540,000 cubic yards of sand and repair riprap within 18 months using about $305 million in secured funding. The work stayed subject to Coastal Act mitigation and monitoring, which is exactly the model: the environmental protections remain, but the queue disappears. Federal emergency authorities for infrastructure protection and a declared state of emergency along the coastal rail corridor could give a coalition the same footing.</li>
+</ul>
+<p>Two cautions. Emergency permits are meant for urgent, limited work and the Coastal Commission scrutinizes them closely, so the durable path is a programmatic permit obtained once, with emergency authority reserved for the first placement and genuine failures. And speed that looks like skipping review invites lawsuits that can cost more time than the review itself. The goal is to go from five to ten years to roughly 18 to 24 months for the first sand, then never re-permit again.</p>
+</section>
+</article>
+
+<section id="stmodel" class="modelsec">
+  <div class="prose">
+  <h2>Short-term delivery model</h2>
+  <p>What it costs to put sand on each city's beach in the next few years using the rail conveyor train where the track reaches the beach and trucks where it does not. Edit any city's target, mode or distance. Defaults draw on the 2025 and 2026 emergency projects and RBSP III volumes.</p>
+  </div>
+  <div class="grid">
+  <aside id="stInputs"></aside>
+  <main>
+    <section>
+      <h3>Sand delivered and cost by city</h3>
+      <p class="sub" id="stline"></p>
+      <div class="tablewrap"><table id="stCity"></table></div>
+    </section>
+    <section>
+      <h3>Cost per cubic yard by delivery method</h3>
+      <p class="sub">All-in cost of sand on San Clemente’s beaches at the target in the table, including purchase, loading, haul, placement and program fixed costs, from each of the two main sources.</p>
+      <h4 class="subh">From the P.W. Gillibrand quarry, San Juan Capistrano</h4>
+      <div class="gauge" id="stGaugeG"></div>
+      <h4 class="subh">From Prado Dam / Santa Ana River sediment, Corona</h4>
+      <div class="gauge" id="stGaugeP"></div>
+      <div class="verdict" id="stVerdict"></div>
+    </section>
+    <section>
+      <h3>Cutting the trucking cost: staging yard and a guaranteed-volume contract</h3>
+      <p class="sub">Four ways to truck San Clemente’s target: contract ten-wheelers straight to the beach, contract transfer trucks to a staging yard at spot rates, a multi-year guaranteed-volume haul contract to the yard, or a coalition-owned fleet of leased transfer trucks with hired drivers. Capacity is no longer limited by beach access because the yard stockpiles.</p>
+      <h4 class="subh">From the P.W. Gillibrand quarry</h4>
+      <div class="gauge" id="stFleetG"></div>
+      <h4 class="subh">From Prado Dam / Santa Ana River sediment</h4>
+      <div class="gauge" id="stFleetP"></div>
+      <div class="verdict" id="stFleetNote"></div>
+    </section>
+    <section class="notes">
+      <h3 style="color:var(--ink)">About the defaults</h3>
+      <p><strong>Train capacity</strong> is Herzog's 30-car Automated Conveyor Train at 98 tons a car, about 2,000 cubic yards of sand, discharged at up to 2,000 tons an hour. <strong>Train and crew cost</strong> per trip is an assumption; replace it with Herzog's quote. <strong>Sand source</strong> is set per city; choosing one fills in a typical haul distance and sand price, both of which you can then edit. Gillibrand is quarry sand trucked a short distance to a rail loadout; Prado sediment is cheaper at the pit but needs screening and a loadout that does not exist yet; the river outlet is the county’s existing Newport source. <strong>Truck costs</strong> are calibrated to recent projects: about $25 per cubic yard for haul alone from the Santa Ana River to San Clemente, and $440,000 for 13,500 cubic yards from the San Juan Capistrano quarry to Capistrano Beach. <strong>Newport</strong> is modeled as its existing short-haul program from the river outlet. Type a number in the <strong>your figure</strong> column to override the computed cost for any city with a quote; clear it to go back to the computed value. The dredged-sand comparison uses RBSP III's $41 per cubic yard for San Clemente. <strong>Fleet costs</strong> are assumptions for a leased transfer truck and trailer with a payroll driver in Southern California; replace them with real lease and wage figures.</p>
+      <button class="reset" id="stReset" type="button">Reset to defaults</button>
+    </section>
+  </main>
+  </div>
+</section>
+
+<section id="model" class="modelsec">
+  <div class="prose">
+  <h2>Long-term dredge model</h2>
+  <p>Compare the annual cost of delivering beach sand three ways: contracting each campaign, a regional joint powers authority (JPA) that owns its own dredge, and the Corps-operated fleet proposed here. The defaults reflect the figures above. The last block estimates what consolidating permits and funding under one coalition saves on top of the dredging comparison. Change any input to test a different case; the results update as you type.</p>
+  </div>
+  <div class="grid">
+  <aside id="inputs"></aside>
+  <main>
+    <section>
+      <h3>All-in cost per cubic yard placed</h3>
+      <p class="sub">Total annual system cost divided by sand placed, before deciding who pays.</p>
+      <div class="gauge" id="gauge"></div>
+      <div class="verdict" id="verdict"></div>
+    </section>
+    <section>
+      <h3>Cost per cubic yard as regional volume grows</h3>
+      <p class="sub">Owning a dredge only pays when its fixed cost is spread over enough sand. The dashed line marks the current volume.</p>
+      <div class="chartbox"><svg id="chart" viewBox="0 0 760 320" width="100%" role="img" aria-label="Cost per cubic yard versus annual volume for three scenarios"></svg></div>
+      <div class="legend">
+        <span style="color:var(--contract)">Contracting</span>
+        <span style="color:var(--jpa)">Regional JPA dredge</span>
+        <span style="color:var(--corps)">Corps Pacific sand fleet</span>
+      </div>
+    </section>
+    <section>
+      <h3>Annual cost breakdown</h3>
+      <p class="sub" id="opsline"></p>
+      <div class="tablewrap"><table id="breakdown"></table></div>
+    </section>
+    <section>
+      <h3>Who pays</h3>
+      <p class="sub">How each scenario’s annual cost is split among partners. Edit the percentages directly; each column should add to 100. San Clemente pays its share of the cities’ portion in proportion to the sand it receives. The next block checks these shares against money actually secured.</p>
+      <div class="tablewrap"><table id="share"></table></div>
+    </section>
+    <section>
+      <h3>Funding on the table</h3>
+      <p class="sub">Dollars already secured or in play, how much of each could go to sand rather than walls and rock, and whether they cover the program over the funding horizon. Edit any row.</p>
+      <div class="tablewrap"><table id="fundTbl"></table></div>
+      <div class="verdict" id="fundVerdict"></div>
+    </section>
+    <section>
+      <h3>Fast-track savings from one roof and one war chest</h3>
+      <p class="sub">Compares repeating environmental review, permitting and design for every campaign against doing it once under a programmatic approval, with emergency authority used for the first placement.</p>
+      <div class="gauge" id="fast"></div>
+      <div class="verdict" id="fastverdict"></div>
+    </section>
+    <section class="notes">
+      <h3 style="color:var(--ink)">About the defaults</h3>
+      <p><strong>Dredge price and capacity</strong> start from the Corps’ Donnelly contract; the presets switch to private-build, larger-hull and refurbished-vessel comparables, and <strong>workable days</strong>, <strong>uptime</strong> and <strong>dredges in the fleet</strong> set availability. <strong>Contract price</strong> of $30/cy blends RBSP III's San Diego ($17–27) and south Orange County ($39–43) estimates; set it to $41 for San Clemente alone. <strong>Volume</strong> of 1.3M cy/yr is RBSP III's 6.35M cy over a 5-year cycle. <strong>Crew costs</strong> are equal in both ownership scenarios so you can test assumptions about labor. <strong>Who pays</strong> defaults: the Corps fleet follows the 65/35 federal cost share used for Corps shore protection; contracting and JPA splits are assumptions about grants versus local money. <strong>Fixed cost covered by other work</strong> is the largest lever for the Corps fleet; try 15% to see the case without much off-season work. The three-way comparison excludes environmental review, permitting, design, borrow-site investigation, monitoring and contingency; those are handled in the fast-track block, which uses RBSP III&rsquo;s $8.2M Phase 2 budget, its 35% contingency, and its $1.54B of 50-year recreational benefit (about $30M a year) as the cost of delay.</p>
+      <button class="reset" id="reset" type="button">Reset to defaults</button>
+    </section>
+  </main>
+  </div>
+</section>
+
+<article class="prose">
+<section id="next">
+<h2>Next steps</h2>
+<ol>
+  <li>Get a quote from Herzog for a dedicated conveyor train and ask OCTA, Metrolink and BNSF for a standing overnight sand window through San Clemente.</li>
+  <li>Line up sand: a sediment agreement for the Santa Ana River outlet and Prado basin with the county, OCWD and the Corps, and a supply contract with the San Juan Capistrano quarry for truck-served beaches.</li>
+  <li>Ask SANDAG and the Southern California Sand Collaborative to add a Corps-operated fleet to the ownership and leasing analysis RBSP III already calls for.</li>
+  <li>Meet with the Corps' Los Angeles District to estimate realistic off-season navigation and harbor workload in the region.</li>
+  <li>Bring OCTA, Caltrans and LOSSAN partners in on the rail-resilience case and quantify avoided closure costs.</li>
+  <li>Fund borrow-site investigations closer to Dana Point and San Clemente.</li>
+  <li>Work with the region's congressional delegation on WRDA language authorizing a West Coast sediment dredge with non-federal cost sharing.</li>
+</ol>
+</section>
+
+<section id="sources" class="sources">
+<h2>Sources</h2>
+<ul>
+  <li>AECOM et al. for SANDAG, <em>Regional Beach Sand Project III Feasibility Study</em>, July 2025.</li>
+  <li>Moffatt &amp; Nichol for California Department of Boating and Waterways, <em>State Ownership of a Dredge: Economic Feasibility Analysis</em>, May 2008.</li>
+  <li>Moffatt &amp; Nichol for Orange County Parks, <em>Orange County Dredge Ownership Feasibility Study</em>, June 2009.</li>
+  <li>Pacific Northwest Waterways Association, <a href="https://www.pnwa.net/wp-content/uploads/2025/11/Maintain-West-Coast-Dredge-Fleet-251120.pdf">Maintain West Coast Dredge Fleet</a>, November 2025.</li>
+  <li>33 U.S.C. § 622, <a href="https://www.law.cornell.edu/uscode/text/33/622">Corps hopper dredge and private industry provisions</a>.</li>
+  <li>Dredging Today, <a href="https://www.dredgingtoday.com/2026/08/11/building-the-donnelly-usaces-newest-hopper-dredger-video/">Building the Donnelly</a>, August 2026; WorkBoat, <a href="https://www.workboat.com/shipbuilding/corps-awards-contract-to-build-new-dredge-to-eastern-shipbuilding">Corps awards $257 million dredge contract</a>.</li>
+  <li>OCTA, <a href="https://octa.net/news/news-releases/octa-thanks-federal-state-partners-for-funding-vital-coastal-rail-corridor-improvements">OCTA thanks federal, state partners for funding coastal rail corridor improvements</a>, October 2024.</li>
+  <li>OCTA, <a href="https://www.octa.net/news/news-releases/coastal-rail-stabilization-requires-emergency-action/">Coastal rail stabilization requires emergency action</a>, March 2025, and <a href="https://www.octa.net/news/news-releases/san-clemente-rail-closure-update-may-8/">San Clemente rail closure update</a>, May 2025; Voice of OC, <a href="https://voiceofoc.org/2025/04/state-grants-orange-county-emergency-permit-for-surfliner-rail-stabilization/">State grants emergency permit for Surfliner rail stabilization</a>, April 2025.</li>
+  <li>Railway Track &amp; Structures, <a href="https://www.rtands.com/track-maintenance/on-track-maintenance/materials-handling-with-care-and-accuracy/">Materials handling with care and accuracy</a> (Herzog Automated Conveyor Train specifications), 2016.</li>
+  <li>UC Irvine Samueli School of Engineering, <a href="https://engineering.uci.edu/news/2026/3/uc-irvine-students-study-effectiveness-transporting-sand-coast-rail">Students study transporting sand to the coast by rail</a>, March 2026.</li>
+  <li>Voice of OC, <a href="https://voiceofoc.org/2026/10/a-tale-of-two-shores-san-clemente-newport-beach-and-the-search-for-sand-in-oc/">A tale of two shores</a>, October 2026, and <a href="https://voiceofoc.org/2026/09/when-will-san-clemente-train-tracks-get-more-sand/">When will San Clemente train tracks get more sand?</a>, September 2026; San Clemente Times, <a href="https://www.picketfencemedia.com/sanclementetimes/sanclementetimes/eye-on-sc/san-clemente-declares-coastal-emergency-approves-1-million-for-sand-replenishment/article_7365c5e1-d0cf-46f5-ab06-ef6a8765c118.html">San Clemente declares coastal emergency</a>, September 2026.</li>
+  <li>Orange County Supervisor Foley, <a href="https://bos5.oc.gov/pr-newport-sand">200,000 cubic yards of sand for Newport Beach</a>, September 2026; OC Parks, <a href="https://parks.oc.gov/news/capistrano-county-beach-sand-nourishment-project">Capistrano County Beach sand nourishment project</a>, May 2026; Railway Track &amp; Structures, <a href="https://www.rtands.com/news/news-news/octa-declares-emergency-along-san-clemente-coastal-rail-line/">OCTA declares emergency along San Clemente coastal rail line</a>, September 2026; Progressive Railroading, <a href="https://www.progressiverailroading.com/passenger_rail/news/OCTA-delivers-first-wave-of-sand-for-San-Clemente-coastal-rail-protection--75340">OCTA delivers first wave of sand</a>, September 2025.</li>
+  <li>The Waterways Journal, <a href="https://www.waterwaysjournal.net/2026/06/12/46827/">Dredging sector adds additional capacity</a>, June 2026; American Association of Port Authorities, <a href="https://aapa.cms-plus.com/files/3DCAnewDredgeInfo.pdf">US dredging companies invest $2 billion in new dredges</a>.</li>
+  <li>The Waterways Journal, <a href="https://www.waterwaysjournal.net/2025/04/09/esg-cuts-steel-for-corps-hopper-dredge/">ESG cuts steel for Corps hopper dredge</a>, April 2025; WorkBoat, <a href="https://www.workboat.com/corps-hopper-dredge-essayons-arrives-in-hawaii-for-repairs">Essayons arrives in Hawaii for repairs</a>.</li>
+</ul>
+<p class="disclaimer">Model figures are planning-level estimates based on published studies and stated assumptions. They are not engineering cost estimates.</p>
+</section>
+</article>
+</div>
+
+<script>
+const GROUPS = [
+ {title:"Regional demand", open:true, fields:[
+  ["V","Annual regional sand volume","cubic yards per year",1300000,10000],
+  ["SC","San Clemente's share","cubic yards per year",210000,5000],
+  ["dist","Average haul, borrow site to beach","nautical miles one way",20,1],
+  ["sites","Beach sites set up per year","pipeline and shore setups",4,1],
+  ["days","Workable days per year","environmental windows",200,5],
+ ]},
+ {title:"Contracting", color:"contract", fields:[
+  ["cUnit","Contract price","$ per cy, before mobilization",30,0.5],
+  ["cMob","Mobilization per campaign","$ millions",15,0.5],
+  ["cEvery","Years between campaigns","",5,1],
+  ["cRisk","Schedule and penalty premium","% added for delays, standby",12,1],
+ ]},
+ {title:"Hopper dredge", fields:[
+  ["cap","Hopper capacity","cubic yards",6000,100],
+  ["fill","Effective load","% of hopper",85,1],
+  ["spdL","Loaded speed","knots",10,0.5],
+  ["spdE","Empty speed","knots",12,0.5],
+  ["tLoad","Load time","hours",1,0.1],
+  ["tPump","Hook-up and pump-out","hours",2,0.1],
+  ["up","Uptime","% of day",85,1],
+  ["fuel","Fuel use per working day","gallons",9000,100],
+  ["fuelP","Fuel price","$ per gallon",4.75,0.05],
+  ["shore","Shore equipment","$ per cy (dozers, pipe, booster)",4.5,0.1],
+  ["setup","Setup cost per site","$ thousands",350,10],
+  ["life","Dredge life","years",30,1],
+  ["crew","Crew size","two rotating crews",46,1],
+  ["minN","Dredges in the fleet","minimum, for redundancy",1,1],
+  ["build","Years to deliver the fleet","authorization, procurement, build",5,0.5],
+ ]},
+ {title:"Regional JPA dredge", color:"jpa", fields:[
+  ["jCap","Dredge price","$ millions",257,1],
+  ["jRate","Bond interest rate","%",4.5,0.1],
+  ["jWage","Crew cost per person","$ thousands, fully loaded",185,5],
+  ["jMaint","Maintenance and drydock","% of price per year",3,0.25],
+  ["jIns","Hull and liability insurance","% of price per year",1.5,0.1],
+  ["jAdmin","JPA staff and admin","$ millions per year",2.5,0.1],
+  ["jOff","Fixed cost covered by other work","% (harbor charters)",15,1],
+ ]},
+ {title:"Corps Pacific sand fleet", color:"corps", fields:[
+  ["kCap","Dredge price","$ millions",257,1],
+  ["kRate","Federal borrowing rate","%",4.25,0.1],
+  ["kWage","Crew cost per person","$ thousands, federal mariners",185,5],
+  ["kMaint","Maintenance and drydock","% of price per year",3,0.25],
+  ["kOH","Corps overhead","% of operating cost",18,1],
+  ["kOff","Fixed cost covered by other work","% (navigation dredging)",40,1],
+ ]},
+ {title:"Permitting and schedule", fields:[
+  ["pCost","Review, permits and design per campaign","$ millions (RBSP III Phase 2)",8.2,0.1],
+  ["pProg","Programmatic document premium","% larger for a 50-year program",40,5],
+  ["pYrsSQ","Years to first sand, project by project","",6,0.5],
+  ["pYrsFT","Years to first sand, consolidated with emergency authority","",1.5,0.25],
+  ["pDelay","Beach value lost per year of delay","$ millions (recreation only)",30,1],
+  ["pContSQ","Contingency, project by project","% of construction",35,1],
+  ["pContFT","Contingency, consolidated program","% of construction",25,1],
+  ["pHoriz","Program horizon","years",25,5],
+ ]},
+ {title:"Who pays", fields:[
+  ["fHoriz","Funding horizon","years the secured money must cover",10,1],
+ ]},
+];
+const DEF = {}; GROUPS.forEach(g=>g.fields.forEach(f=>DEF[f[0]]=f[3]));
+let S = {...DEF};
+
+const aside = document.getElementById('inputs');
+GROUPS.forEach(g=>{
+  const d=document.createElement('details'); if(g.open) d.open=true;
+  const sw = g.color?`<span class="sw" style="background:var(--${g.color})"></span>`:'';
+  d.innerHTML=`<summary><span>${sw}${g.title}</span></summary>`;
+  g.fields.forEach(([k,l,s,v,st])=>{
+    const w=document.createElement('div'); w.className='field';
+    w.innerHTML=`<label for="f-${k}">${l}${s?`<small>${s}</small>`:''}</label><input id="f-${k}" type="number" step="${st}" value="${v}" inputmode="decimal">`;
+    d.appendChild(w);
+  });
+  aside.appendChild(d);
+});
+Object.keys(S).forEach(k=>{const el=document.getElementById('f-'+k); if(el) el.value=S[k];});
+aside.addEventListener('input',e=>{
+  if(!e.target.id.startsWith('f-')) return;
+  const v=parseFloat(e.target.value); if(!isNaN(v)){S[e.target.id.slice(2)]=v; render();}
+});
+document.getElementById('reset').onclick=()=>{S={...DEF};P=JSON.parse(JSON.stringify(P_DEF));document.querySelectorAll('#share input').forEach(i=>{i.value=P[i.dataset.sc][i.dataset.pi];});Object.keys(S).forEach(k=>document.getElementById('f-'+k).value=S[k]);render();};
+
+
+const PRESETS=[
+ ["Corps medium 6,000 cy",{cap:6000,jCap:257,kCap:257,build:5},"Donnelly: $257M, 2023 award, 2027 delivery"],
+ ["Private 6,500 cy",{cap:6500,jCap:246,kCap:246,build:4},"GLDD Amelia Island: $246M, Conrad Shipyard, 2025"],
+ ["Larger 8,500 cy",{cap:8550,jCap:190,kCap:190,build:4},"Weeks Magdalen class: $110M in 2017, escalated"],
+ ["Used or refurbished 4,000 cy",{cap:4000,jCap:90,kCap:90,build:2},"assumption: existing US-built hull, rebuilt"],
+];
+(function(){
+  const d=aside.querySelectorAll('details')[2];
+  const box=document.createElement('div'); box.className='presets';
+  box.innerHTML=`<p class="hint">Start from a known vessel, then edit any number.</p>`+PRESETS.map((p,i)=>`<button type="button" class="preset" data-i="${i}">${p[0]}<small>${p[2]}</small></button>`).join('');
+  d.insertBefore(box,d.children[1]);
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const v=PRESETS[b.dataset.i][1];
+    Object.keys(v).forEach(k=>{S[k]=v[k];document.getElementById('f-'+k).value=v[k];});render();});
+})();
+
+var lastRail={cy:0,cost:0};
+const PAYERS=['Federal','State of California','OCTA','Coastal cities and counties'];
+const P_DEF={contract:[25,25,10,40],jpa:[10,30,15,45],corps:[65,15,5,15]};
+let P=JSON.parse(JSON.stringify(P_DEF));
+const ann=(P,r,n)=>{r/=100; return r===0?P/n:P*r/(1-Math.pow(1+r,-n));};
+
+function calc(V){
+  const p=S;
+  const cycle=p.tLoad+p.dist/p.spdL+p.dist/p.spdE+p.tPump;
+  const cyDay=(24*p.up/100/cycle)*p.cap*p.fill/100;
+  const capYr=cyDay*p.days;
+  const n=Math.max(1,p.minN||1,Math.ceil(V/capYr));
+  const dDays=V/cyDay;
+  const fuel=dDays*p.fuel*p.fuelP, shore=V*p.shore, setup=p.sites*p.setup*1e3;
+  const variable=fuel+shore+setup;
+
+  // Contracting
+  const cBase=V*p.cUnit, cMob=p.cMob*1e6/p.cEvery;
+  const cRisk=(cBase+cMob)*p.cRisk/100;
+  const contract={rows:{"Dredging and placement":cBase,"Mobilization (annualized)":cMob,"Schedule and penalty premium":cRisk},total:cBase+cMob+cRisk};
+
+  // JPA
+  const jC=ann(p.jCap*1e6,p.jRate,p.life)*n, jM=p.jCap*1e6*p.jMaint/100*n, jI=p.jCap*1e6*p.jIns/100*n,
+        jW=p.crew*p.jWage*1e3*n, jA=p.jAdmin*1e6;
+  const jFixed=jC+jM+jI+jW+jA, jOff=-jFixed*p.jOff/100;
+  const jpa={rows:{"Dredge debt service":jC,"Crew":jW,"Maintenance and drydock":jM,"Insurance":jI,"Admin / overhead":jA,
+    "Fuel":fuel,"Shore equipment":shore,"Site setups":setup,"Less: other work":jOff},total:jFixed+variable+jOff};
+
+  // Corps
+  const kC=ann(p.kCap*1e6,p.kRate,p.life)*n, kM=p.kCap*1e6*p.kMaint/100*n, kW=p.crew*p.kWage*1e3*n;
+  const kOH=(kW+kM+variable)*p.kOH/100;
+  const kFixed=kC+kM+kW, kOff=-kFixed*p.kOff/100;
+  const corps={rows:{"Dredge debt service":kC,"Crew":kW,"Maintenance and drydock":kM,"Insurance":0,"Admin / overhead":kOH,
+    "Fuel":fuel,"Shore equipment":shore,"Site setups":setup,"Less: other work":kOff},total:kFixed+variable+kOH+kOff};
+
+  return {contract,jpa,corps,n,dDays,cyDay,capYr};
+}
+
+
+function fastTrack(r){
+  const p=S, camps=Math.max(1,Math.round(p.pHoriz/p.cEvery));
+  const permitSQ=p.pCost*1e6*camps, permitFT=p.pCost*1e6*(1+p.pProg/100);
+  const yrs=Math.max(0,p.pYrsSQ-p.pYrsFT), delay=p.pDelay*1e6*yrs;
+  const base=Math.min(r.contract.total,r.jpa.total,r.corps.total)*p.pHoriz;
+  const cont=base*(p.pContSQ-p.pContFT)/100;
+  return {permit:permitSQ-permitFT,delay,cont,yrs,camps,total:permitSQ-permitFT+delay+cont};
+}
+
+const $=n=>'$'+(Math.abs(n)>=1e6?(n/1e6).toFixed(1)+'M':Math.round(n/1e3)+'K');
+const fmt=n=>(n<0?'−':'')+$(Math.abs(n));
+const NAMES={contract:["Contracting","project by project"],jpa:["Regional JPA dredge","locally owned"],corps:["Corps Pacific sand fleet","partner-financed"]};
+
+function render(){
+  const V=S.V, r=calc(V);
+  const per={contract:r.contract.total/V,jpa:r.jpa.total/V,corps:r.corps.total/V};
+  const max=Math.max(...Object.values(per))*1.08;
+  document.getElementById('gauge').innerHTML=Object.keys(per).map(k=>`
+    <div class="row"><div class="name">${NAMES[k][0]}<span>${NAMES[k][1]}</span></div>
+    <div class="bar"><i style="width:${Math.max(2,per[k]/max*100)}%;background:var(--${k})"></i></div>
+    <div class="val num">$${per[k].toFixed(2)}<small>per cy · ${$(r[k].total)}/yr</small></div></div>`).join('');
+
+  const best=Object.keys(per).reduce((a,b)=>per[a]<per[b]?a:b);
+  const be=k=>{for(let v=50000;v<=6000000;v+=10000){const x=calc(v);if(x[k].total/v<x.contract.total/v) return v;}return null;};
+  const bJ=be('jpa'), bK=be('corps');
+  const bt=v=>v?`${(v/1e6).toFixed(2)}M cy/yr`:'not within 6M cy/yr';
+  document.getElementById('verdict').innerHTML=
+    `At ${(V/1e6).toFixed(2)}M cy/yr, <strong>${NAMES[best][0].toLowerCase()}</strong> is cheapest. A JPA-owned dredge beats contracting above ${bt(bJ)}; the Corps fleet beats it above ${bt(bK)}.`+
+    (typeof lastRail==='object'&&lastRail.cy>0?` While the fleet is built (${S.build} years), the rail bridge in the short-term model carries about ${Math.round(lastRail.cy).toLocaleString()} cy a year at ${$(lastRail.cost)} a year, roughly ${$(lastRail.cost*S.build)} before the first dredge works.`:'');
+
+  document.getElementById('opsline').textContent=
+    `Each dredge places about ${Math.round(r.cyDay).toLocaleString()} cy per working day and up to ${(r.capYr/1e6).toFixed(2)}M cy per season. This volume needs ${r.n} dredge${r.n>1?'s':''} working about ${Math.round(r.dDays/r.n)} days each.`;
+
+  const keys=Object.keys(r.jpa.rows);
+  let h=`<thead><tr><th>Annual cost</th><th style="color:var(--contract)">Contracting</th><th style="color:var(--jpa)">JPA</th><th style="color:var(--corps)">Corps fleet</th></tr></thead><tbody>`;
+  h+=`<tr><td>Contract price, mobilization, risk</td><td>${fmt(r.contract.total)}</td><td>–</td><td>–</td></tr>`;
+  keys.forEach(k=>{h+=`<tr${k.startsWith('Less')?' class="neg"':''}><td>${k}</td><td>–</td><td>${fmt(r.jpa.rows[k])}</td><td>${fmt(r.corps.rows[k])}</td></tr>`;});
+  h+=`<tr class="total"><td>Total per year</td><td>${fmt(r.contract.total)}</td><td>${fmt(r.jpa.total)}</td><td>${fmt(r.corps.total)}</td></tr></tbody>`;
+  document.getElementById('breakdown').innerHTML=h;
+
+  const scS=S.SC/V;
+  const shareTbl=document.getElementById('share');
+  if(!shareTbl.dataset.built){
+    shareTbl.innerHTML=`<thead><tr><th>Payer</th><th style="color:var(--contract)">Contracting %</th><th>$/yr</th><th style="color:var(--jpa)">JPA %</th><th>$/yr</th><th style="color:var(--corps)">Corps fleet %</th><th>$/yr</th></tr></thead><tbody>`+
+      PAYERS.map((pn,pi)=>`<tr><td>${pn}</td>`+['contract','jpa','corps'].map(sc=>`<td><input data-sc="${sc}" data-pi="${pi}" type="number" step="5" value="${P[sc][pi]}"></td><td id="sh-${sc}-${pi}"></td>`).join('')+`</tr>`).join('')+
+      `<tr><td>Column total</td>`+['contract','jpa','corps'].map(sc=>`<td id="shtot-${sc}"></td><td></td>`).join('')+`</tr>`+
+      `<tr class="total"><td>San Clemente per year</td>`+['contract','jpa','corps'].map(sc=>`<td></td><td id="shsc-${sc}"></td>`).join('')+`</tr></tbody>`;
+    shareTbl.dataset.built='1';
+    shareTbl.addEventListener('input',e=>{const sc=e.target.dataset.sc,pi=e.target.dataset.pi;if(sc===undefined)return;P[sc][pi]=parseFloat(e.target.value)||0;render();});
+  }
+  ['contract','jpa','corps'].forEach(sc=>{
+    const tot=r[sc].total, sum=P[sc].reduce((a,b)=>a+b,0)||1;
+    PAYERS.forEach((pn,pi)=>{document.getElementById(`sh-${sc}-${pi}`).textContent=$(tot*P[sc][pi]/sum);});
+    const te=document.getElementById(`shtot-${sc}`); te.textContent=Math.round(sum)+'%'; te.style.color=Math.round(sum)===100?'var(--muted)':'var(--contract)';
+    document.getElementById(`shsc-${sc}`).textContent=$(tot*P[sc][3]/sum*scS);
+  });
+
+
+  const f=fastTrack(r), fmax=Math.max(f.permit,f.delay,f.cont,1)*1.08;
+  const frows=[["Permitting and design done once",`${f.camps} campaigns vs 1 programmatic approval`,f.permit],
+               ["Sand on the beach sooner",`${f.yrs.toFixed(1)} years earlier`,f.delay],
+               ["Lower contingency","more certainty on cost and schedule",f.cont]];
+  document.getElementById('fast').innerHTML=frows.map(([a,b,v])=>`
+    <div class="row"><div class="name">${a}<span>${b}</span></div>
+    <div class="bar"><i style="width:${Math.max(2,v/fmax*100)}%;background:var(--corps)"></i></div>
+    <div class="val num">${$(v)}<small>over ${S.pHoriz} years</small></div></div>`).join('');
+  document.getElementById('fastverdict').innerHTML=
+    `Consolidating saves about <strong>${$(f.total)}</strong> over ${S.pHoriz} years and puts the first sand on the beach about <strong>${f.yrs.toFixed(1)} years sooner</strong>, on top of the dredging savings above.`;
+  drawChart();
+  if(typeof renderFund==='function'&&typeof F!=='undefined') renderFund();
+}
+
+function drawChart(){
+  const W=760,H=320,L=56,R=16,T=14,B=40;
+  const vols=[]; for(let v=250000;v<=4000000;v+=50000) vols.push(v);
+  const data={contract:[],jpa:[],corps:[]};
+  vols.forEach(v=>{const r=calc(v);['contract','jpa','corps'].forEach(k=>data[k].push(r[k].total/v));});
+  const yMax=Math.min(120,Math.ceil(Math.max(...data.contract,...data.corps,...data.jpa.slice(8))/10)*10);
+  const x=v=>L+(v-250000)/(3750000)*(W-L-R), y=c=>T+(1-Math.min(c,yMax)/yMax)*(H-T-B);
+  let s='';
+  for(let c=0;c<=yMax;c+=yMax>60?20:10){s+=`<line x1="${L}" x2="${W-R}" y1="${y(c)}" y2="${y(c)}" stroke="var(--line)"/><text x="${L-8}" y="${y(c)+4}" text-anchor="end">$${c}</text>`;}
+  [0.5,1,1.5,2,2.5,3,3.5,4].forEach(m=>{s+=`<text x="${x(m*1e6)}" y="${H-B+18}" text-anchor="middle">${m}M</text>`;});
+  s+=`<text x="${(L+W-R)/2}" y="${H-4}" text-anchor="middle">Annual regional volume (cubic yards)</text>`;
+  Object.keys(data).forEach(k=>{
+    const pts=data[k].map((c,i)=>`${x(vols[i]).toFixed(1)},${y(c).toFixed(1)}`).join(' ');
+    s+=`<polyline points="${pts}" fill="none" stroke="var(--${k})" stroke-width="2.5" stroke-linejoin="round"/>`;
+  });
+  if(S.V>=250000&&S.V<=4000000){s+=`<line x1="${x(S.V)}" x2="${x(S.V)}" y1="${T}" y2="${H-B}" stroke="var(--ink)" stroke-dasharray="3 4"/><text x="${x(S.V)+6}" y="${T+12}" style="fill:var(--ink)">You are here</text>`;}
+  document.getElementById('chart').innerHTML=s;
+}
+
+// ---------------- Funding on the table ----------------
+const FUNDS=[
+ {src:"FRA CRISI grant to OCTA (federal)",amt:100,pct:50,note:"part of the $305M secured fall 2024 for coastal rail stabilization"},
+ {src:"CalSTA TIRCP to OCTA (state)",amt:125,pct:50,note:"same $305M package"},
+ {src:"CTC Trade Corridor (TCEP) to OCTA (state)",amt:80,pct:50,note:"same $305M package"},
+ {src:"OCTA Measure M local match",amt:60,pct:50,note:"OCTA's own share of the $250–340M program"},
+ {src:"USACE San Clemente shore protection + city match",amt:14,pct:100,note:"federal project, renourishment every 5–6 years"},
+ {src:"San Clemente emergency sand funds",amt:1,pct:100,note:"September 2026"},
+ {src:"Newport Beach sand program",amt:15,pct:100,note:"about $1.5M a year from the river outlet"},
+ {src:"OC Parks / Dana Point sand placement",amt:5,pct:100,note:"Capistrano Beach"},
+ {src:"SANDAG RBSP III grants, Orange County share",amt:0,pct:100,note:"not yet secured"},
+ {src:"New federal authorization for the fleet (WRDA)",amt:0,pct:100,note:"not yet secured"},
+ {src:"State coastal resilience / Prop 4 climate bond",amt:0,pct:100,note:"not yet secured"},
+];
+let F=FUNDS.map(f=>({...f}));
+function renderFund(rebuild){
+  const tbl=document.getElementById('fundTbl');
+  if(rebuild||!tbl.dataset.built){
+    tbl.innerHTML=`<thead><tr><th>Source</th><th>Amount $M</th><th>Usable for sand %</th><th>Usable $M</th></tr></thead><tbody>`+
+      F.map((f,i)=>`<tr><td>${f.src}<br><small style="color:var(--muted)">${f.note}</small></td>
+      <td><input data-fi="${i}" data-k="amt" type="number" step="1" value="${f.amt}"></td>
+      <td><input data-fi="${i}" data-k="pct" type="number" step="5" value="${f.pct}"></td>
+      <td id="fu${i}"></td></tr>`).join('')+`<tr class="total"><td>Total usable for sand</td><td id="ftot"></td><td></td><td id="futot"></td></tr></tbody>`;
+    tbl.dataset.built='1';
+  }
+  let tot=0,use=0; F.forEach((f,i)=>{const u=f.amt*f.pct/100; tot+=f.amt; use+=u; document.getElementById('fu'+i).textContent='$'+u.toFixed(1)+'M';});
+  document.getElementById('ftot').textContent='$'+tot.toFixed(0)+'M'; document.getElementById('futot').textContent='$'+use.toFixed(1)+'M';
+  // program cost over funding horizon
+  const r=calc(S.V), H=S.fHoriz, b=Math.min(S.build,H);
+  const bridge=lastRail.cost*b;
+  const fleet=Math.min(r.contract.total,r.jpa.total,r.corps.total)*(H-b);
+  const permits=S.pCost*1e6*(1+S.pProg/100);
+  const need=bridge+fleet+permits, gap=need-use*1e6;
+  document.getElementById('fundVerdict').innerHTML=
+    `Over ${H} years the program needs about <strong>${$(need)}</strong>: ${$(bridge)} for the rail bridge during the ${b}-year build, ${$(fleet)} to run the cheapest long-term option for ${H-b} years, and ${$(permits)} for programmatic review and permits. Money usable for sand comes to <strong>${$(use*1e6)}</strong>, leaving ${gap>0?`a gap of <strong>${$(gap)}</strong> to close with the sources marked not yet secured`:`<strong>${$(-gap)}</strong> of headroom`}.`;
+}
+document.getElementById('fundTbl').addEventListener('input',e=>{
+  const i=e.target.dataset.fi,k=e.target.dataset.k; if(i===undefined) return;
+  F[i][k]=parseFloat(e.target.value)||0; renderFund();
+});
+
+
+// Open every input group for printing, then restore
+(function(){
+  let opened=[];
+  window.addEventListener('beforeprint',()=>{opened=[];document.querySelectorAll('details:not([open])').forEach(d=>{d.open=true;opened.push(d);});});
+  window.addEventListener('afterprint',()=>{opened.forEach(d=>d.open=false);opened=[];});
+})();
+
+render();
+
+// ---------------- Short-term delivery model ----------------
+const ST_GROUPS=[
+ {title:"Rail conveyor train", color:"corps", open:true, fields:[
+  ["trains","Conveyor trains dedicated to the corridor","",1,1],
+  ["tCy","Sand per train","cubic yards (30 cars x 98 tons)",2000,50],
+  ["nights","Overnight windows per week","one train per window",5,1],
+  ["closeDays","Scheduled closure days per year","extra multi-train days",0,1],
+  ["tpd","Trains per closure day","",4,1],
+  ["railMiles","Rail haul, source to beach","miles (Gillibrand loadout 10; Prado 70)",10,5],
+  ["railRate","Rail haul rate","$ per ton-mile",0.06,0.01],
+  ["trainCost","Herzog train, crew and unloading","$ per train trip",35000,1000],
+  ["railTruck","Truck leg, quarry to rail loadout","$ per cy (0 if loaded on site)",4,0.5],
+  ["railLoad","Loading at source","$ per cy",4,0.5],
+  ["railSpread","Dozers and shaping on the beach","$ per cy",5,0.5],
+  ["railMob","Bring a conveyor train to the West Coast","$ millions, one time",1.5,0.25],
+  ["railFixed","Permits, monitoring, coalition staff","$ millions per year",1.5,0.25],
+  ["railYears","Years the rail program runs","",5,1],
+ ]},
+ {title:"Trucking", color:"contract", fields:[
+  ["trkRate","Truck haul rate","$ per cy per mile",0.65,0.05],
+  ["trkLoad","Loading and traffic control","$ per cy",4,0.5],
+  ["trkSpread","Dozers and shaping on the beach","$ per cy",5,0.5],
+  ["trkLoadCy","Sand per truck","cubic yards",18,1],
+  ["trkPerDay","Truck trips per day a beach can take","",60,5],
+  ["trkDays","Trucking days per year","outside peak beach season",150,10],
+ ]},
+ {title:"Staging yard and own truck fleet", color:"contract", fields:[
+  ["xHandle","Staging yard handling","$ per cy (stockpile, loader, screening)",3,0.5],
+  ["xShuttle","Shuttle, yard to beach","road miles",3,0.5],
+  ["xTransRate","Contract transfer trucks, long haul","$ per cy per mile (24 cy trailers)",0.40,0.05],
+  ["xGuar","Guaranteed-volume discount","% off the per-mile rate for a 4–5 year committed volume",15,5],
+  ["xGuarYrs","Contract term","years",5,1],
+  ["xTrailerCy","Own fleet: sand per truck","cubic yards (transfer trailer)",24,1],
+  ["xLease","Own fleet: truck and trailer lease","$ thousands per truck per year",65,5],
+  ["xDriver","Own fleet: driver, fully loaded","$ thousands per year",110,5],
+  ["xMaint","Own fleet: maintenance, tires, insurance","$ thousands per truck per year",35,5],
+  ["xOH","Own fleet: dispatch and yard overhead","$ thousands per truck per year",15,5],
+  ["xMpg","Own fleet: fuel economy","miles per gallon",5,0.5],
+  ["xFuel","Own fleet: fuel price","$ per gallon",5,0.25],
+  ["xSpeed","Own fleet: average road speed","mph",35,5],
+  ["xTurn","Own fleet: load and unload time","hours per trip",0.5,0.1],
+  ["xDays","Own fleet: hauling days per year","year-round to the yard",250,10],
+  ["xOff","Own fleet: fixed cost covered by other public-agency work","% (flood channels, harbor spoils, road material)",25,5],
+ ]},
+ {title:"Comparison", fields:[
+  ["dredgeUnit","Dredged sand when available","$ per cy (RBSP III, San Clemente)",41,1],
+ ]},
+];
+const SOURCES={
+ gill:{label:"P.W. Gillibrand quarry, San Juan Capistrano",sand:18,rail:{sc:10,dp:5},truck:{sc:12,dp:8,lb:18,nb:30,ot:15}},
+ prado:{label:"Prado Dam / Santa Ana River sediment (Corona)",sand:10,rail:{sc:70,dp:65},truck:{sc:60,dp:55,lb:55,nb:35,ot:50}},
+ sar:{label:"Santa Ana River outlet (Newport)",sand:8,rail:{sc:40,dp:35},truck:{sc:40,dp:35,lb:25,nb:3,ot:25}},
+ other:{label:"Other (type a name)",sand:18,rail:{sc:30,dp:25},truck:{sc:30,dp:25,lb:30,nb:30,ot:30}},
+};
+const ST_CITIES=[
+ {key:"sc",name:"San Clemente",source:"gill",sourceName:"",sand:18,need:300000,mode:"rail",miles:10,unitOv:"",note:"North Beach, pier, State Beach, Cyprus Shores"},
+ {key:"dp",name:"Dana Point (Capistrano Beach)",source:"gill",sourceName:"",sand:18,need:100000,mode:"rail",miles:5,unitOv:"",note:"track runs along Capistrano Beach"},
+ {key:"lb",name:"Laguna Beach",source:"gill",sourceName:"",sand:18,need:20000,mode:"truck",miles:18,unitOv:"",note:"no rail at the shore; pocket beaches"},
+ {key:"nb",name:"Newport Beach",source:"sar",sourceName:"",sand:8,need:150000,mode:"truck",miles:3,unitOv:"",note:"existing river-outlet program"},
+ {key:"ot",name:"Other / add a city",source:"other",sourceName:"",sand:18,need:0,mode:"truck",miles:30,unitOv:"",note:""},
+];
+const ST_DEF={}; ST_GROUPS.forEach(g=>g.fields.forEach(f=>ST_DEF[f[0]]=f[3]));
+let T={...ST_DEF}, C=ST_CITIES.map(c=>({...c}));
+
+const stAside=document.getElementById('stInputs');
+ST_GROUPS.forEach(g=>{
+  const d=document.createElement('details'); if(g.open) d.open=true;
+  const sw=g.color?`<span class="sw" style="background:var(--${g.color})"></span>`:'';
+  d.innerHTML=`<summary><span>${sw}${g.title}</span></summary>`;
+  g.fields.forEach(([k,l,sub,v,st])=>{
+    const w=document.createElement('div'); w.className='field';
+    w.innerHTML=`<label for="st-${k}">${l}${sub?`<small>${sub}</small>`:''}</label><input id="st-${k}" type="number" step="${st}" value="${v}" inputmode="decimal">`;
+    d.appendChild(w);
+  });
+  stAside.appendChild(d);
+});
+Object.keys(T).forEach(k=>{const el=document.getElementById('st-'+k); if(el) el.value=T[k];});
+stAside.addEventListener('input',e=>{
+  if(!e.target.id.startsWith('st-')) return;
+  const v=parseFloat(e.target.value); if(!isNaN(v)){T[e.target.id.slice(3)]=v; renderST();}
+});
+document.getElementById('stReset').onclick=()=>{T={...ST_DEF};C=ST_CITIES.map(c=>({...c}));Object.keys(T).forEach(k=>document.getElementById('st-'+k).value=T[k]);renderST(true);};
+
+function railUnit(miles,sand){ // variable $/cy by rail, excluding fixed
+  const tons=T.tCy*1.45;
+  return (T.trainCost+tons*miles*T.railRate)/T.tCy + sand+T.railTruck+T.railLoad+T.railSpread;
+}
+function truckUnit(miles,sand){ return sand+T.trkLoad+T.trkSpread+miles*T.trkRate; }
+
+function renderST(rebuild){
+  const trainsYr=T.trains*(T.nights*52+T.closeDays*T.tpd);
+  const railCap=trainsYr*T.tCy;
+  const truckCapCity=T.trkPerDay*T.trkLoadCy*T.trkDays;
+  const railCities=C.filter(c=>c.mode==='rail'&&c.need>0), railNeed=railCities.reduce((a,c)=>a+c.need,0);
+  const railShare=railNeed>0?Math.min(1,railCap/railNeed):1;
+  const railFixedYr=T.railMob*1e6/T.railYears+T.railFixed*1e6;
+  const railDelivered=railNeed*railShare;
+  const fixedPerCy=railDelivered>0?railFixedYr/railDelivered:0;
+
+  let totCy=0,totCost=0,railCost=0,railCy=0,trkCost=0,trkCy=0;
+  const rows=C.map((c,i)=>{
+    let del=0,cost=0,unit=0;
+    if(c.need>0){
+      const ov=parseFloat(c.unitOv);
+      if(c.mode==='rail'){ del=c.need*railShare; unit=ov>0?ov:railUnit(c.miles,c.sand)+fixedPerCy; cost=del*unit; railCost+=cost; railCy+=del; }
+      else { del=Math.min(c.need,truckCapCity); unit=ov>0?ov:truckUnit(c.miles,c.sand); cost=del*unit; trkCost+=cost; trkCy+=del; }
+    }
+    totCy+=del; totCost+=cost;
+    const short=c.need>0&&del<c.need-1;
+    return {c,i,del,cost,unit,short};
+  });
+
+  const tbl=document.getElementById('stCity');
+  if(rebuild||!tbl.dataset.built){
+    tbl.innerHTML=`<thead><tr><th>City</th><th>Sand source</th><th>Target cy/yr</th><th>Method</th><th>Haul miles</th><th>Sand $/cy</th><th>Delivered cy/yr</th><th>$/cy<br><small style="font-weight:400">computed</small></th><th>$/cy<br><small style="font-weight:400">your figure</small></th><th>$/yr</th></tr></thead><tbody>`+
+      C.map((c,i)=>`<tr><td>${c.name}${c.note?`<br><small style="color:var(--muted)">${c.note}</small>`:''}</td>
+      <td><select data-i="${i}" data-k="source">${Object.keys(SOURCES).map(k=>`<option value="${k}"${c.source===k?' selected':''}>${SOURCES[k].label}</option>`).join('')}</select><input data-i="${i}" data-k="sourceName" type="text" placeholder="source name" value="${c.sourceName}" style="margin-top:4px;text-align:left;font-family:Archivo,sans-serif;font-weight:500;${c.source==='other'?'':'display:none'}"></td>
+      <td><input data-i="${i}" data-k="need" type="number" step="5000" value="${c.need}"></td>
+      <td><select data-i="${i}" data-k="mode"><option value="rail"${c.mode==='rail'?' selected':''}>Rail train</option><option value="truck"${c.mode==='truck'?' selected':''}>Trucks</option></select></td>
+      <td><input data-i="${i}" data-k="miles" type="number" step="1" value="${c.miles}"></td>
+      <td><input data-i="${i}" data-k="sand" type="number" step="1" value="${c.sand}"></td>
+      <td id="stdel${i}"></td><td id="stunit${i}"></td><td><input data-i="${i}" data-k="unitOv" type="number" step="1" placeholder="auto" value="${c.unitOv}"></td><td id="stcost${i}"></td></tr>`).join('')+
+      `<tr class="total"><td>Total</td><td></td><td id="stneed"></td><td></td><td></td><td></td><td id="sttdel"></td><td id="sttunit"></td><td></td><td id="sttcost"></td></tr></tbody>`;
+    tbl.dataset.built='1';
+  }
+  rows.forEach(r=>{
+    const d=document.getElementById('stdel'+r.i); d.textContent=r.del?Math.round(r.del).toLocaleString():'–'; d.className=r.short?'warn':'';
+    const comp=r.c.need>0?(r.c.mode==='rail'?railUnit(r.c.miles,r.c.sand)+fixedPerCy:truckUnit(r.c.miles,r.c.sand)):0;
+    document.getElementById('stunit'+r.i).textContent=comp?'$'+comp.toFixed(2):'–';
+    document.getElementById('stcost'+r.i).textContent=r.cost?$(r.cost):'–';
+  });
+  document.getElementById('stneed').textContent=C.reduce((a,c)=>a+c.need,0).toLocaleString();
+  document.getElementById('sttdel').textContent=Math.round(totCy).toLocaleString();
+  document.getElementById('sttunit').textContent=totCy?'$'+(totCost/totCy).toFixed(2):'–';
+  document.getElementById('sttcost').textContent=$(totCost);
+
+  const shortCities=rows.filter(r=>r.short).map(r=>r.c.name);
+  document.getElementById('stline').innerHTML=
+    `${trainsYr} train trips a year deliver up to ${railCap.toLocaleString()} cubic yards by rail; each truck-served beach can take about ${truckCapCity.toLocaleString()} cubic yards a year.`+
+    (shortCities.length?` <span style="color:var(--contract)">Capacity falls short of the target for ${shortCities.join(', ')}; add rail capacity (a train, windows, closure days) or more trucking days.</span>`:' Rail capacity covers the rail-served targets.');
+
+  // comparison: San Clemente's target from each of the two main sources
+  const ref=C.find(c=>c.key==='sc')||C[0];
+  const need=ref.need, trkShort=Math.max(0,need-truckCapCity);
+  const draw=(id,key)=>{
+    const src=SOURCES[key], rM=src.rail.sc, kM=src.truck.sc;
+    const rU=railUnit(rM,src.sand)+fixedPerCy, kU=truckUnit(kM,src.sand);
+    const flag=trkShort>0?` <span style="color:var(--contract);font-weight:600">cannot meet the target, see note below</span>`:'';
+    const bars=[["Rail conveyor train",`${rM} rail miles · up to ${(railCap/1e3).toFixed(0)}k cy/yr`,rU,"corps"],
+                [`Trucking${flag}`,`${kM} road miles · up to ${(truckCapCity/1e3).toFixed(0)}k cy/yr`,kU,"contract"],
+                ["Dredged sand (RBSP III)","available in 5 to 10 years",T.dredgeUnit,"jpa"]];
+    const bmax=Math.max(...bars.map(x=>x[2]))*1.08;
+    document.getElementById(id).innerHTML=bars.map(([a2,b2,v2,k2])=>`
+      <div class="row"><div class="name">${a2}<span>${b2}</span></div>
+      <div class="bar"><i style="width:${Math.max(2,v2/bmax*100)}%;background:var(--${k2})"></i></div>
+      <div class="val num">$${v2.toFixed(2)}<small>per cy</small></div></div>`).join('');
+    return {rU,kU,rM,kM};
+  };
+  const g=draw('stGaugeG','gill'), pr=draw('stGaugeP','prado');
+  let v=`<strong>Note.</strong> San Clemente’s target is ${need.toLocaleString()} cy a year. `;
+  v+=trkShort>0?`At ${T.trkPerDay} truck trips a day for ${T.trkDays} days, trucks can deliver about ${truckCapCity.toLocaleString()} cy a year to a beach, <strong>${trkShort.toLocaleString()} cy short</strong> of the target, so the trucking price applies only to the sand trucks can actually move; the conveyor train covers the full target in ${Math.ceil(need/T.tCy)} trips. `:`Trucks can cover this target at ${T.trkPerDay} trips a day. `;
+  v+=`From Gillibrand, ${g.kM} road miles away, trucks are cheaper per yard ($${g.kU.toFixed(0)} versus $${g.rU.toFixed(0)}) because the train’s per-trip charge (${$(T.trainCost)}, about $${(T.trainCost/T.tCy).toFixed(0)}/cy) outweighs its haul savings on a short run. From Prado, ${pr.rM} rail miles away, rail is ${pr.rU<pr.kU?'cheaper':'close'} at $${pr.rU.toFixed(0)} versus $${pr.kU.toFixed(0)} by truck; rail wins once the source is roughly 30 miles or more away. Both methods beat dredged sand on timing rather than price: they can start in months, not years. Replace the per-train assumption with Herzog’s quote before judging the rail numbers.`;
+  document.getElementById('stVerdict').innerHTML=v;
+
+  // ---- staging yard and own fleet ----
+  const fleetFor=(key)=>{
+    const src=SOURCES[key], kM=src.truck.sc, base=src.sand+T.trkLoad+T.trkSpread;
+    const direct=base+kM*T.trkRate;
+    const transfer=base+T.xHandle+(kM-T.xShuttle)*T.xTransRate+T.xShuttle*T.trkRate;
+    const guar=base+T.xHandle+(kM-T.xShuttle)*T.xTransRate*(1-T.xGuar/100)+T.xShuttle*T.trkRate;
+    const legMi=Math.max(1,kM-T.xShuttle), cyc=(2*legMi)/T.xSpeed+T.xTurn, tripsDay=Math.round(Math.max(1,10/cyc)*10)/10;
+    const cyTruckYr=tripsDay*T.xTrailerCy*T.xDays;
+    const fuelYr=2*legMi*tripsDay*T.xDays/T.xMpg*T.xFuel;
+    const truckYr=(T.xLease+T.xDriver+T.xMaint+T.xOH)*1e3*(1-T.xOff/100)+fuelYr;
+    const ownHaul=truckYr/cyTruckYr;
+    const own=base+T.xHandle+ownHaul+T.xShuttle*T.trkRate;
+    const trucks=Math.ceil(need/cyTruckYr);
+    return {direct,transfer,guar,own,trucks,tripsDay,cyTruckYr,ownHaul,kM,legMi};
+  };
+  const drawFleet=(id,key)=>{
+    const f=fleetFor(key);
+    const bars=[["Contract ten-wheelers to the beach",`${f.kM} miles · limited to ${(truckCapCity/1e3).toFixed(0)}k cy/yr by beach access`,f.direct],
+                ["Contract transfer trucks to a staging yard",`${f.legMi} miles long haul + ${T.xShuttle}-mile shuttle, spot rate`,f.transfer],
+                [`Guaranteed-volume haul contract to a staging yard <span style="color:var(--jpa);font-weight:600">recommended</span>`,`${T.xGuarYrs}-year committed volume, ${T.xGuar}% off the spot rate; hauler fills idle time with its own work`,f.guar],
+                ["Own leased fleet to a staging yard",`${f.trucks} trucks, ${f.tripsDay} trips a day each, ${T.xDays} days, ${T.xOff}% of fixed cost covered by other work`,f.own]];
+    const bmax=Math.max(...bars.map(x=>x[2]))*1.08;
+    document.getElementById(id).innerHTML=bars.map(([a2,b2,v2])=>`
+      <div class="row"><div class="name">${a2}<span>${b2}</span></div>
+      <div class="bar"><i style="width:${Math.max(2,v2/bmax*100)}%;background:var(--contract)"></i></div>
+      <div class="val num">$${v2.toFixed(2)}<small>per cy</small></div></div>`).join('');
+    return f;
+  };
+  const fg=drawFleet('stFleetG','gill'), fp=drawFleet('stFleetP','prado');
+  const pct=(a,b)=>Math.round((1-a/b)*100);
+  document.getElementById('stFleetNote').innerHTML=
+    `<strong>Note.</strong> A staging yard does two things: it lets the long haul run with bigger trucks on a cheaper per-mile rate, and it separates hauling from beach access, so sand arrives ${T.xDays} days a year and goes onto the beach in bursts during the ${T.trkDays} days the beach can take it. It costs about $${T.xHandle}/cy to handle the sand twice. `+
+    `The recommended structure is a ${T.xGuarYrs}-year haul contract with a guaranteed annual volume. The commitment lets the hauler lock in trucks and drivers and price the work ${T.xGuar}% below the spot rate, and the hauler, not the coalition, carries the idle-truck risk and fills the off months with commercial work a public fleet legally cannot take. `+
+    `From Prado, ${fp.kM} miles away, that brings the cost to about $${fp.guar.toFixed(0)}/cy against $${fp.direct.toFixed(0)} direct by contract ten-wheelers (${pct(fp.guar,fp.direct)}% less); an owned fleet of ${fp.trucks} leased trucks with ${T.xOff}% of its fixed cost covered by other public-agency work comes to about $${fp.own.toFixed(0)}, a small further saving for a large fixed commitment. `+
+    `From Gillibrand, ${fg.kM} miles away, the guaranteed contract is about $${fg.guar.toFixed(0)}/cy against $${fg.direct.toFixed(0)} direct; on a short run the trucks spend their day loading and unloading rather than driving, so no structure saves much, and the yard's value there is capacity and keeping trucks off the beach access points rather than price.`;
+}
+document.getElementById('stCity').addEventListener('input',e=>{
+  const i=e.target.dataset.i,k=e.target.dataset.k; if(i===undefined) return;
+  const c=C[i];
+  if(k==='source'){ c.source=e.target.value; const src=SOURCES[c.source]; c.sand=src.sand; c.miles=(c.mode==='rail'?src.rail:src.truck)[c.key]??c.miles; renderST(true); return; }
+  if(k==='mode'){ c.mode=e.target.value; const src=SOURCES[c.source]; c.miles=(c.mode==='rail'?src.rail:src.truck)[c.key]??c.miles; renderST(true); return; }
+  c[k]=(k==='unitOv'||k==='sourceName')?e.target.value:parseFloat(e.target.value)||0; renderST();
+});
+renderST(true);
+renderFund(true);
+</script>
+</body>
+</html>
