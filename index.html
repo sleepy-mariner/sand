@@ -123,6 +123,9 @@ aside{position:sticky;top:calc(12px + env(safe-area-inset-top,0px));max-height:c
 #stCity td.warn{color:var(--contract)}
 
 .presets{margin:4px 0 12px}
+#dockPresets{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+#dockPresets .hint{grid-column:1 / -1;margin:0}
+#dockPresets .preset{margin:0}
 .preset{display:block;width:100%;text-align:left;margin:0 0 6px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--field);color:var(--ink);font:600 13px "Archivo",sans-serif;cursor:pointer}
 .preset small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
 .preset:hover,.preset:focus-visible{border-color:var(--corps);outline:none}
@@ -167,13 +170,10 @@ input,select{-webkit-text-fill-color:var(--ink);opacity:1;color-scheme:light dar
 @media (min-width:1100px){
   .prose{max-width:none}
   .lede{max-width:90ch}
-  .prose section{column-count:2;column-gap:44px}
-  .prose section>h2,.prose section>h3{column-span:all}
-  .prose section>h3{margin-top:4px}
-  .prose p,.prose li{break-inside:avoid}
-  .prose p{margin-bottom:12px}
-  #next ol,#sources ul{break-inside:avoid}
-  .modelsec .prose{column-count:1}
+  .prose .cols{column-count:2;column-gap:44px;column-fill:balance}
+  .prose .cols>h3{break-after:avoid;break-inside:avoid;margin-top:4px}
+  .prose .cols>p,.prose .cols>li,.prose .cols>ul,.prose .cols>ol{break-inside:avoid}
+  .prose .cols>p{margin-bottom:12px}
 }
 </style>
 </head>
@@ -212,11 +212,21 @@ input,select{-webkit-text-fill-color:var(--ink);opacity:1;color-scheme:light dar
 <p>The rail line that makes the beach a problem is also the solution. The track runs on the beach from Capistrano Beach through North Beach, the pier, San Clemente State Beach and Cyprus Shores. Herzog's Automated Conveyor Train is a 30-car consist, each car carrying up to 98 tons, with a discharge car that places material up to 50 feet from track center at up to 2,000 tons an hour. One loaded train carries roughly 2,000 cubic yards of sand and can be emptied onto the beach in about two hours. Material is discharged on the field side with the boom locked away from the live track, which is how the system is built to avoid fouling ballast on adjacent lines.</p>
 <p>The nearest source is a few miles up the canyon. P.W. Gillibrand Co. operates a sand quarry at 31302 Ortega Highway in San Juan Capistrano, the same material OC Parks trucked onto Capistrano Beach this spring, and it sits close to the rail corridor where the line passes through San Juan Capistrano. Sand can be trucked a short distance to a rail loadout there and run the last eight to ten miles to the beach on the conveyor train, or trucked straight to Capistrano Beach and North Beach. The larger long-run source is inland: in wet years the Santa Ana River delivers sand that the county and Newport Beach already harvest at the river outlet, and the Prado Dam basin near Corona holds about 80 million cubic yards of accumulated sediment half a mile from the Metrolink line, where UC Irvine is studying loading railcars for exactly this purpose; that material needs screening to meet beach-compatibility standards and a loadout that does not yet exist, and it travels about 70 miles of existing track through Fullerton and Irvine with no transload.</p>
 <p>The operating question is the time slot. There are gaps between the last Surfliner and the first morning train, and freight already moves through the corridor at night. One conveyor train per night, five nights a week, places on the order of 500,000 cubic yards a year, roughly OCTA's entire emergency program in twelve months. The corridor has absorbed six-week closures for emergency rock work; a scheduled overnight sand window is a smaller ask with a far better result for the track. With enough committed volume, Herzog has reason to station a second conveyor train on the West Coast.</p>
+<p>Two pieces of work already under way sharpen the picture. The City of San Clemente’s Offshore Sand Source Investigation took vibracores at the nearby candidate sites in 2025 and found the closest ones unusable: Dana Point, Doheny, North Beach, San Clemente South and San Mateo Point are mostly fine silt, and a Santa Margarita River core came back about 90% fines. San Onofre was the promising site, with the best material in the top seven feet nearest shore, and the Santa Ana River and Surfside-Sunset offshore deposits tested suitable. Phase 2 exploration was planned for summer 2026 with a final report due in December, and its answer on San Onofre decides whether a dredge borrow site exists within a few miles of San Clemente or whether the long-term sand comes from the Santa Ana River and north. Separately, the Orange County Water District is working with a UC Irvine engineering team on a sediment-by-rail feasibility assessment for Prado Dam and the Santa Ana River. It counts roughly 1.5 million cubic yards of sediment available this year at five upstream sites, screens a dozen or more downstream staging and rail-spur sites with Doheny Beach as the worked example, and compares rail, trucking, conveyor and slurry delivery. Its early conclusion matches this brief: rail pays over distance, and the transload cost at each end is what decides it. The coalition should adopt both studies rather than repeat them.</p>
+<h3>Where the loadout goes</h3>
+<p>Sand reaches the train at a loadout: a siding of about 2,000 feet for a 30-car consist, five to ten acres for a stockpile, a loader, and truck access that avoids residential streets. Three places on the line qualify, and each trades something.</p>
+<ul>
+  <li><strong>North San Juan Capistrano, along Camino Capistrano.</strong> Closest to the Gillibrand quarry, about six miles down Ortega Highway and one exit up I-5, with commercial and industrial frontage beside the track and no need to pass through the historic downtown. A new siding on OCTA right-of-way, roughly nine rail miles to North Beach. The simplest truck logistics; the most neighbors.</li>
+  <li><strong>Doheny Park Road, Capistrano Beach.</strong> Industrial parcels beside the right-of-way where the line meets the coast, near the existing Serra siding, which may cut the track work. Minutes by rail from Capistrano Beach and North Beach, and the site the UC Irvine team used as its downstream example. Trucks come through Dana Point, which is the hard part.</li>
+  <li><strong>San Onofre, south of Cyprus Shores.</strong> State park, the Marine base and the decommissioning nuclear plant site, with an existing siding and four miles of double track to stage a train off the main line. No neighbors, so trains can load at any hour, and the loaded train places from south to north starting at San Clemente State Beach. The sand still comes from Gillibrand or Prado, since the cores off the base came back too fine. The costs are a longer truck leg down I-5 and two more partners, because the right-of-way south of the county line belongs to NCTD and the land to the Marine Corps.</li>
+</ul>
+<p>A loadout at either end of the corridor also lets the train work in both directions, placing on the way out and on the way back; two loadouts, one north and one south, would make that routine. The loadout selector in the short-term model sets the truck leg, the rail miles to each beach and a siding-and-yard cost for each site.</p>
 <h3 id="ballast">Will sand foul the ballast? Why the conveyor train is the safe way to do this</h3>
 <p>The concern is legitimate and specific. Ballast, the crushed rock the track sits in, works because it drains and because it holds the ties firmly; fines that migrate into it reduce both, and on a signaled line damp, salty material in the ballast can also lower the electrical resistance that the track circuits depend on. That is why no one should be dumping sand on or beside the rails. It is also why the Automated Conveyor Train is the right tool rather than a risk.</p>
 <p>The train never puts sand on the track structure. Its discharge car carries a 35-foot boom that places material up to 50 feet from track center, well beyond the ballast shoulder and the toe of the embankment, at an angle of up to 45 degrees to either side, and the boom locks on the field side so it cannot swing back over the live track. Sand goes onto the seaward beach, below track grade, where it belongs. The same machine is used by Class I railroads to deliver ballast itself and to rebuild washed-out track, work that depends on exactly this control. A few operating rules close the remaining gap: discharge only with the boom at its outer reach, place in a windrow that dozers spread the same night, mist the windrow against windblown dust, hold the window when winds are onshore and strong, use beach-compatible sand with the low fines content the permits already require, and run a track inspection and a sweep before the first train in the morning. Herzog has told the coalition the train can do this without fouling the ballast; the operating rules make that a condition of the contract rather than a promise.</p>
 <p>Two points put the risk in proportion. First, OCTA’s own plan places 540,000 cubic yards of sand right beside this track, by truck and by dredge; the sand ends up in the same place whichever vehicle brings it, so the question is which delivery method controls placement best, and a boom that drops sand at a fixed distance from the rail controls it better than a dump truck backing down a beach ramp. Second, the track already lives on a beach. Windblown sand and salt spray reach the ballast today, and the storms that overtop the line leave cobble, kelp and wet sand on the ties. A wider beach is the thing that stops that. The way to settle it is a pilot: one train, one night, with track geometry and ballast resistance measured before and after, witnessed by Metrolink’s track engineers. If the numbers move, the rules change; if they do not, the objection is answered.</p>
 <p>Trucks still matter, and there is a smarter way to run them. Trucking straight from a quarry to the beach is limited by how many trips a beach access point can take in a day and by the season when the beach is open to work. A staging yard near the corridor changes that: long-haul transfer trucks, which carry about 24 cubic yards against 10 for a ten-wheeler and cost less per mile, run to the yard year-round; a loader and a conveyor or short shuttle move sand to the beach when the window is open. Rather than lease a fleet and hire drivers, the coalition should sign a four- to five-year haul contract with a guaranteed annual volume. The commitment is what cuts the price: a hauler who knows the work is there for five years can lock in trucks and drivers, price below the spot rate, and fill the months the beach is closed with commercial work a public fleet legally cannot take, so the idle-truck risk sits with the hauler rather than the coalition. The model shows where that pays: on a long haul like Prado it cuts the trucking cost by roughly a fifth to a quarter, while on the short run from Gillibrand the double handling cancels most of the gain. An owned fleet of leased trucks saves a little more on paper, but only if other public agencies keep the trucks busy in the off months, and it leaves the coalition paying for parked trucks the moment a permit slips; the guaranteed contract captures most of the saving without that exposure.</p>
+<p>A third path avoids the hopper dredge altogether. Inland sand trucked to a dock can be loaded onto scows, towed a few miles and pumped onto the beach through a pipeline by a pump-out unit of the small hydraulic-dredge class, the equipment the 2009 Orange County study found a county could own economically. It costs about what rail costs per yard because the sand is handled four times, but it needs no $250 million vessel and no offshore borrow site, it reaches beaches the track does not, including Laguna, and the pump barge is a sensible first vessel for a coalition that wants to own equipment. Its limit is the dock: Dana Point Harbor is close but shallow and residential, Camp Pendleton’s Del Mar boat basin is a working harbor 15 miles south, and Long Beach has everything but a 50-mile tow. The model prices the option from each.</p>
 <p>The model below prices this for each city with editable assumptions. The point it makes is not that rail is cheap. It is that rail is available in months, scales to the volume the emergency declarations call for, and costs about what dredged sand will cost in five years.</p>
 </section>
 
@@ -309,9 +319,19 @@ input,select{-webkit-text-fill-color:var(--ink);opacity:1;color-scheme:light dar
       <div class="gauge" id="stFleetP"></div>
       <div class="verdict" id="stFleetNote"></div>
     </section>
+    <section>
+      <h3>Barge and pump ashore: a third delivery path</h3>
+      <p class="sub">Inland sand trucked to a dock, loaded onto scows, towed a few miles and pumped onto the beach through a pipeline, with no hopper dredge and no offshore borrow site. Priced for San Clemente’s target from each source; pick the dock below.</p>
+      <div class="presets" id="dockPresets"></div>
+      <h4 class="subh">From the P.W. Gillibrand quarry</h4>
+      <div class="gauge" id="stBargeG"></div>
+      <h4 class="subh">From Prado Dam / Santa Ana River sediment</h4>
+      <div class="gauge" id="stBargeP"></div>
+      <div class="verdict" id="stBargeNote"></div>
+    </section>
     <section class="notes">
       <h3 style="color:var(--ink)">About the defaults</h3>
-      <p><strong>Train capacity</strong> is Herzog's 30-car Automated Conveyor Train at 98 tons a car, about 2,000 cubic yards of sand, discharged at up to 2,000 tons an hour. <strong>Train and crew cost</strong> per trip is an assumption; replace it with Herzog's quote. <strong>Sand source</strong> is set per city; choosing one fills in a typical haul distance and sand price, both of which you can then edit. Gillibrand is quarry sand trucked a short distance to a rail loadout; Prado sediment is cheaper at the pit but needs screening and a loadout that does not exist yet; the river outlet is the county’s existing Newport source. <strong>Truck costs</strong> are calibrated to recent projects: about $25 per cubic yard for haul alone from the Santa Ana River to San Clemente, and $440,000 for 13,500 cubic yards from the San Juan Capistrano quarry to Capistrano Beach. <strong>Newport</strong> is modeled as its existing short-haul program from the river outlet. Type a number in the <strong>your figure</strong> column to override the computed cost for any city with a quote; clear it to go back to the computed value. The dredged-sand comparison uses RBSP III's $41 per cubic yard for San Clemente. <strong>Fleet costs</strong> are assumptions for a leased transfer truck and trailer with a payroll driver in Southern California; replace them with real lease and wage figures.</p>
+      <p><strong>Train capacity</strong> is Herzog's 30-car Automated Conveyor Train at 98 tons a car, about 2,000 cubic yards of sand, discharged at up to 2,000 tons an hour. <strong>Train and crew cost</strong> per trip is an assumption; replace it with Herzog's quote. <strong>Loadout site</strong> buttons set the truck leg, rail miles and yard cost for the three candidate sites described above. <strong>Sand source</strong> is set per city; choosing one fills in a typical haul distance and sand price, both of which you can then edit. Gillibrand is quarry sand trucked a short distance to a rail loadout; Prado sediment is cheaper at the pit but needs screening and a loadout that does not exist yet; the river outlet is the county’s existing Newport source. <strong>Truck costs</strong> are calibrated to recent projects: about $25 per cubic yard for haul alone from the Santa Ana River to San Clemente, and $440,000 for 13,500 cubic yards from the San Juan Capistrano quarry to Capistrano Beach. <strong>Newport</strong> is modeled as its existing short-haul program from the river outlet. Type a number in the <strong>your figure</strong> column to override the computed cost for any city with a quote; clear it to go back to the computed value. The dredged-sand comparison uses RBSP III's $41 per cubic yard for San Clemente. <strong>Fleet costs</strong> are assumptions for a leased transfer truck and trailer with a payroll driver in Southern California; replace them with real lease and wage figures.</p>
       <button class="reset" id="stReset" type="button">Reset to defaults</button>
     </section>
   </main>
@@ -398,6 +418,7 @@ input,select{-webkit-text-fill-color:var(--ink);opacity:1;color-scheme:light dar
   <li>Dredging Today, <a href="https://www.dredgingtoday.com/2026/08/11/building-the-donnelly-usaces-newest-hopper-dredger-video/">Building the Donnelly</a>, August 2026; WorkBoat, <a href="https://www.workboat.com/shipbuilding/corps-awards-contract-to-build-new-dredge-to-eastern-shipbuilding">Corps awards $257 million dredge contract</a>.</li>
   <li>OCTA, <a href="https://octa.net/news/news-releases/octa-thanks-federal-state-partners-for-funding-vital-coastal-rail-corridor-improvements">OCTA thanks federal, state partners for funding coastal rail corridor improvements</a>, October 2024.</li>
   <li>OCTA, <a href="https://www.octa.net/news/news-releases/coastal-rail-stabilization-requires-emergency-action/">Coastal rail stabilization requires emergency action</a>, March 2025, and <a href="https://www.octa.net/news/news-releases/san-clemente-rail-closure-update-may-8/">San Clemente rail closure update</a>, May 2025; Voice of OC, <a href="https://voiceofoc.org/2025/04/state-grants-orange-county-emergency-permit-for-surfliner-rail-stabilization/">State grants emergency permit for Surfliner rail stabilization</a>, April 2025.</li>
+  <li>South Orange County Beach Coalition, <a href="https://bos5.oc.gov/sites/bos5.egovoc.com/files/2026-03/March%20Presentations%2003-18-2026.pdf">March 18, 2026 meeting presentations</a>: UC Irvine/OCWD Sediment by Rail Feasibility Assessment, Capistrano Bight shoreline conditions, and the City of San Clemente Offshore Sand Source Investigation Phase 1 findings.</li>
   <li>Railway Track &amp; Structures, <a href="https://www.rtands.com/track-maintenance/on-track-maintenance/materials-handling-with-care-and-accuracy/">Materials handling with care and accuracy</a> (Herzog Automated Conveyor Train specifications), 2016.</li>
   <li>UC Irvine Samueli School of Engineering, <a href="https://engineering.uci.edu/news/2026/3/uc-irvine-students-study-effectiveness-transporting-sand-coast-rail">Students study transporting sand to the coast by rail</a>, March 2026.</li>
   <li>Voice of OC, <a href="https://voiceofoc.org/2026/10/a-tale-of-two-shores-san-clemente-newport-beach-and-the-search-for-sand-in-oc/">A tale of two shores</a>, October 2026, and <a href="https://voiceofoc.org/2026/09/when-will-san-clemente-train-tracks-get-more-sand/">When will San Clemente train tracks get more sand?</a>, September 2026; San Clemente Times, <a href="https://www.picketfencemedia.com/sanclementetimes/sanclementetimes/eye-on-sc/san-clemente-declares-coastal-emergency-approves-1-million-for-sand-replenishment/article_7365c5e1-d0cf-46f5-ab06-ef6a8765c118.html">San Clemente declares coastal emergency</a>, September 2026.</li>
@@ -683,6 +704,15 @@ document.getElementById('fundTbl').addEventListener('input',e=>{
 });
 
 
+
+// Two-column layout on wide screens: wrap everything after each section heading
+document.querySelectorAll('article.prose > section').forEach(sec=>{
+  const h=sec.querySelector(':scope > h2'); if(!h) return;
+  const box=document.createElement('div'); box.className='cols';
+  while(h.nextSibling) box.appendChild(h.nextSibling);
+  sec.appendChild(box);
+});
+
 // Open every input group for printing, then restore
 (function(){
   let opened=[];
@@ -703,10 +733,11 @@ const ST_GROUPS=[
   ["railMiles","Rail haul, source to beach","miles (Gillibrand loadout 10; Prado 70)",10,5],
   ["railRate","Rail haul rate","$ per ton-mile",0.06,0.01],
   ["trainCost","Herzog train, crew and unloading","$ per train trip",35000,1000],
-  ["railTruck","Truck leg, quarry to rail loadout","$ per cy (0 if loaded on site)",4,0.5],
+  ["railTruck","Truck leg, quarry to rail loadout","$ per cy (0 if loaded on site)",6,0.5],
   ["railLoad","Loading at source","$ per cy",4,0.5],
   ["railSpread","Dozers and shaping on the beach","$ per cy",5,0.5],
   ["railMob","Bring a conveyor train to the West Coast","$ millions, one time",1.5,0.25],
+  ["railYard","Loadout siding and stockpile yard","$ millions, one time",4,0.5],
   ["railFixed","Permits, monitoring, coalition staff","$ millions per year",1.5,0.25],
   ["railYears","Years the rail program runs","",5,1],
  ]},
@@ -736,18 +767,32 @@ const ST_GROUPS=[
   ["xDays","Own fleet: hauling days per year","year-round to the yard",250,10],
   ["xOff","Own fleet: fixed cost covered by other public-agency work","% (flood channels, harbor spoils, road material)",25,5],
  ]},
+ {title:"Barge and pump ashore", color:"jpa", fields:[
+  ["bgScow","Sand per scow","cubic yards",3000,250],
+  ["bgTrips","Scow deliveries per day","per pump-out unit",2,0.5],
+  ["bgDays","Working days per year","sea state and beach windows",150,10],
+  ["bgTruck","Truck leg, source to dock","$ per cy",8,0.5],
+  ["bgLoad","Dock loadout","$ per cy (conveyor to scow)",4,0.5],
+  ["bgTow","Tug and scow, per round trip","$ thousands",12,1],
+  ["bgNm","Dock to beach","nautical miles",5,1],
+  ["bgPump","Pump-out unit and pipeline","$ thousands per working day",45,5],
+  ["bgSpread","Dozers and shaping on the beach","$ per cy",5,0.5],
+  ["bgDock","Dock loadout and stockpile improvements","$ millions, one time",5,0.5],
+  ["bgFixed","Permits, monitoring, staff","$ millions per year",1,0.25],
+  ["bgYears","Years the barge program runs","",5,1],
+ ]},
  {title:"Comparison", fields:[
   ["dredgeUnit","Dredged sand when available","$ per cy (RBSP III, San Clemente)",41,1],
  ]},
 ];
 const SOURCES={
- gill:{label:"P.W. Gillibrand quarry, San Juan Capistrano",sand:18,rail:{sc:10,dp:5},truck:{sc:12,dp:8,lb:18,nb:30,ot:15}},
+ gill:{label:"P.W. Gillibrand quarry, San Juan Capistrano",sand:18,rail:{sc:9,dp:5},truck:{sc:12,dp:8,lb:18,nb:30,ot:15}},
  prado:{label:"Prado Dam / Santa Ana River sediment (Corona)",sand:10,rail:{sc:70,dp:65},truck:{sc:60,dp:55,lb:55,nb:35,ot:50}},
  sar:{label:"Santa Ana River outlet (Newport)",sand:8,rail:{sc:40,dp:35},truck:{sc:40,dp:35,lb:25,nb:3,ot:25}},
  other:{label:"Other (type a name)",sand:18,rail:{sc:30,dp:25},truck:{sc:30,dp:25,lb:30,nb:30,ot:30}},
 };
 const ST_CITIES=[
- {key:"sc",name:"San Clemente",source:"gill",sourceName:"",sand:18,need:300000,mode:"rail",miles:10,unitOv:"",note:"North Beach, pier, State Beach, Cyprus Shores"},
+ {key:"sc",name:"San Clemente",source:"gill",sourceName:"",sand:18,need:300000,mode:"rail",miles:9,unitOv:"",note:"North Beach, pier, State Beach, Cyprus Shores"},
  {key:"dp",name:"Dana Point (Capistrano Beach)",source:"gill",sourceName:"",sand:18,need:100000,mode:"rail",miles:5,unitOv:"",note:"track runs along Capistrano Beach"},
  {key:"lb",name:"Laguna Beach",source:"gill",sourceName:"",sand:18,need:20000,mode:"truck",miles:18,unitOv:"",note:"no rail at the shore; pocket beaches"},
  {key:"nb",name:"Newport Beach",source:"sar",sourceName:"",sand:8,need:150000,mode:"truck",miles:3,unitOv:"",note:"existing river-outlet program"},
@@ -773,6 +818,37 @@ stAside.addEventListener('input',e=>{
   if(!e.target.id.startsWith('st-')) return;
   const v=parseFloat(e.target.value); if(!isNaN(v)){T[e.target.id.slice(3)]=v; renderST();}
 });
+
+const LOADOUTS=[
+ ["North San Juan Capistrano",{railTruck:6,railYard:4},{sc:9,dp:5},"new siding on OCTA right-of-way; 6-mile truck leg from Gillibrand"],
+ ["Doheny Park Road, Capistrano Beach",{railTruck:7,railYard:3},{sc:5,dp:1},"near the Serra siding; trucks through Dana Point"],
+ ["San Onofre",{railTruck:12,railYard:3},{sc:7,dp:13},"existing siding and double track; no neighbors; NCTD and Marine Corps partners"],
+];
+(function(){
+  const d=stAside.querySelector('details');
+  const box=document.createElement('div'); box.className='presets';
+  box.innerHTML=`<p class="hint">Loadout site: sets the truck leg, each beach’s rail miles and the siding and yard cost.</p>`+LOADOUTS.map((p,i)=>`<button type="button" class="preset" data-i="${i}">${p[0]}<small>${p[3]}</small></button>`).join('');
+  d.insertBefore(box,d.children[1]);
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const L=LOADOUTS[b.dataset.i];
+    Object.keys(L[1]).forEach(k=>{T[k]=L[1][k];const el=document.getElementById('st-'+k);if(el)el.value=T[k];});
+    C.forEach(c=>{if(c.mode==='rail'&&L[2][c.key]!==undefined) c.miles=L[2][c.key];});
+    renderST(true);});
+})();
+
+
+const DOCKS=[
+ ["Dana Point Harbor",{bgNm:5,bgTruck:8,bgDock:6,bgTow:12},"3–6 nm from the receiver beaches; shallow recreational harbor, needs a loadout and neighbors’ consent"],
+ ["Camp Pendleton Del Mar boat basin",{bgNm:15,bgTruck:14,bgDock:4,bgTow:20},"working military harbor beside Oceanside; Marine Corps partner; longer tow and truck leg"],
+ ["Port of Long Beach",{bgNm:50,bgTruck:12,bgDock:2,bgTow:45},"full commercial waterfront already there; 50 nm tow each way"],
+];
+(function(){
+  const box=document.getElementById('dockPresets'); if(!box) return;
+  box.innerHTML=`<p class="hint">Dock site: sets the tow distance, truck leg and dock improvement cost.</p>`+DOCKS.map((p,i)=>`<button type="button" class="preset" data-i="${i}">${p[0]}<small>${p[2]}</small></button>`).join('');
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const D=DOCKS[b.dataset.i];
+    Object.keys(D[1]).forEach(k=>{T[k]=D[1][k];const el=document.getElementById('st-'+k);if(el)el.value=T[k];});
+    renderST();});
+})();
+
 document.getElementById('stReset').onclick=()=>{T={...ST_DEF};C=ST_CITIES.map(c=>({...c}));Object.keys(T).forEach(k=>document.getElementById('st-'+k).value=T[k]);renderST(true);};
 
 function railUnit(miles,sand){ // variable $/cy by rail, excluding fixed
@@ -787,7 +863,7 @@ function renderST(rebuild){
   const truckCapCity=T.trkPerDay*T.trkLoadCy*T.trkDays;
   const railCities=C.filter(c=>c.mode==='rail'&&c.need>0), railNeed=railCities.reduce((a,c)=>a+c.need,0);
   const railShare=railNeed>0?Math.min(1,railCap/railNeed):1;
-  const railFixedYr=T.railMob*1e6/T.railYears+T.railFixed*1e6;
+  const railFixedYr=(T.railMob+T.railYard)*1e6/T.railYears+T.railFixed*1e6;
   const railDelivered=railNeed*railShare;
   const fixedPerCy=railDelivered>0?railFixedYr/railDelivered:0;
 
@@ -837,7 +913,7 @@ function renderST(rebuild){
   const ref=C.find(c=>c.key==='sc')||C[0];
   const need=ref.need, trkShort=Math.max(0,need-truckCapCity);
   const draw=(id,key)=>{
-    const src=SOURCES[key], rM=src.rail.sc, kM=src.truck.sc;
+    const src=SOURCES[key], rM=(ref.mode==='rail'?ref.miles:src.rail.sc), kM=src.truck.sc;
     const rU=railUnit(rM,src.sand)+fixedPerCy, kU=truckUnit(kM,src.sand);
     const flag=trkShort>0?` <span style="color:var(--contract);font-weight:600">cannot meet the target, see note below</span>`:'';
     const bars=[["Rail conveyor train",`${rM} rail miles · up to ${(railCap/1e3).toFixed(0)}k cy/yr`,rU,"corps"],
@@ -891,6 +967,37 @@ function renderST(rebuild){
     `The recommended structure is a ${T.xGuarYrs}-year haul contract with a guaranteed annual volume. The commitment lets the hauler lock in trucks and drivers and price the work ${T.xGuar}% below the spot rate, and the hauler, not the coalition, carries the idle-truck risk and fills the off months with commercial work a public fleet legally cannot take. `+
     `From Prado, ${fp.kM} miles away, that brings the cost to about $${fp.guar.toFixed(0)}/cy against $${fp.direct.toFixed(0)} direct by contract ten-wheelers (${pct(fp.guar,fp.direct)}% less); an owned fleet of ${fp.trucks} leased trucks with ${T.xOff}% of its fixed cost covered by other public-agency work comes to about $${fp.own.toFixed(0)}, a small further saving for a large fixed commitment. `+
     `From Gillibrand, ${fg.kM} miles away, the guaranteed contract is about $${fg.guar.toFixed(0)}/cy against $${fg.direct.toFixed(0)} direct; on a short run the trucks spend their day loading and unloading rather than driving, so no structure saves much, and the yard's value there is capacity and keeping trucks off the beach access points rather than price.`;
+
+  // ---- barge and pump ashore ----
+  const bargeFor=(key)=>{
+    const src=SOURCES[key];
+    const cyDay=T.bgScow*T.bgTrips, cyYr=cyDay*T.bgDays;
+    const towPerCy=T.bgTow*1e3/T.bgScow, pumpPerCy=T.bgPump*1e3/cyDay;
+    const fixed=(T.bgDock*1e6/T.bgYears+T.bgFixed*1e6)/Math.max(1,Math.min(need,cyYr));
+    const unit=src.sand+T.bgTruck+T.bgLoad+towPerCy+pumpPerCy+T.bgSpread+fixed;
+    return {unit,cyYr,cyDay,towPerCy,pumpPerCy,fixed};
+  };
+  const drawBarge=(id,key)=>{
+    const b=bargeFor(key), src=SOURCES[key];
+    const rM=(ref.mode==='rail'?ref.miles:src.rail.sc);
+    const rU=railUnit(rM,src.sand)+fixedPerCy, kU=truckUnit(src.truck.sc,src.sand);
+    const flag=b.cyYr<need?` <span style="color:var(--contract);font-weight:600">${Math.round(b.cyYr/1e3)}k cy/yr, short of the target</span>`:'';
+    const bars=[["Rail conveyor train",`${rM} rail miles · up to ${(railCap/1e3).toFixed(0)}k cy/yr`,rU,"corps"],
+                [`Barge and pump ashore${flag}`,`${T.bgNm} nm tow · ${T.bgTrips} scows a day · up to ${(b.cyYr/1e3).toFixed(0)}k cy/yr per pump-out unit`,b.unit,"jpa"],
+                ["Trucking",`${src.truck.sc} road miles · up to ${(truckCapCity/1e3).toFixed(0)}k cy/yr`,kU,"contract"],
+                ["Dredged sand (RBSP III)","available in 5 to 10 years, if a borrow site exists",T.dredgeUnit,"muted"]];
+    const bmax=Math.max(...bars.map(x=>x[2]))*1.08;
+    document.getElementById(id).innerHTML=bars.map(([a2,b2,v2,k2])=>`
+      <div class="row"><div class="name">${a2}<span>${b2}</span></div>
+      <div class="bar"><i style="width:${Math.max(2,v2/bmax*100)}%;background:var(--${k2})"></i></div>
+      <div class="val num">$${v2.toFixed(2)}<small>per cy</small></div></div>`).join('');
+    return b;
+  };
+  const bg=drawBarge('stBargeG','gill'), bp=drawBarge('stBargeP','prado');
+  document.getElementById('stBargeNote').innerHTML=
+    `<strong>Note.</strong> The barge path replaces the one thing the region cannot get, an ocean-going hopper dredge and a confirmed borrow site, with equipment that is plentiful and cheap: scows and tugs, a pump-out unit of the small hydraulic-dredge class the 2009 Orange County study found a county could own, and a pipeline. It does not remove the pump, the pipeline or the shore work, and the sand is handled four times, so at the defaults it costs about $${bg.unit.toFixed(0)}/cy from Gillibrand and $${bp.unit.toFixed(0)}/cy from Prado, of which about $${bg.towPerCy.toFixed(0)} is the tow and $${bg.pumpPerCy.toFixed(0)} the pump-out. `+
+    `One pump-out unit at ${T.bgTrips} scows a day for ${T.bgDays} days places about ${Math.round(bg.cyYr).toLocaleString()} cy a year${bg.cyYr<need?`, short of the ${need.toLocaleString()} cy target; add a second unit or more working days`:``}. `+
+    `Its value is availability and reach rather than price: it can serve beaches the track does not touch, including Laguna, it is independent of the San Onofre borrow-site results, and a coalition-owned pump barge is a far cheaper first vessel than a hopper dredge. The limiting problem is the dock, which is why the dock choice above matters more than any input in this group.`;
 }
 document.getElementById('stCity').addEventListener('input',e=>{
   const i=e.target.dataset.i,k=e.target.dataset.k; if(i===undefined) return;
